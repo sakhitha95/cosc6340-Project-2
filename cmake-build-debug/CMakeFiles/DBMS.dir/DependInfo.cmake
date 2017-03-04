@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/devincrane/CLionProjects/DBMS/dbms.cpp" "/Users/devincrane/CLionProjects/DBMS/cmake-build-debug/CMakeFiles/DBMS.dir/dbms.cpp.o"
+  "/Users/amirreza/CLionProjects/git1/cosc6340-Project-2/dbms.cpp" "/Users/amirreza/CLionProjects/git1/cosc6340-Project-2/cmake-build-debug/CMakeFiles/DBMS.dir/dbms.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

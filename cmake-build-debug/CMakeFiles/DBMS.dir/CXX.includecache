@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/devincrane/CLionProjects/DBMS/dbms.cpp
+/Users/amirreza/CLionProjects/git1/cosc6340-Project-2/dbms.cpp
 iostream
 -
 stdio.h
