@@ -4,7 +4,7 @@
 using namespace std;
 
 void parseScriptFile(string scriptFile) {
-
+    cout << scriptFile << endl;
 }
 
 void commandLineSQLInput(string SQL) {
@@ -12,16 +12,15 @@ void commandLineSQLInput(string SQL) {
 }
 
 int main(int argc, char *argv[]) {
-//    cout << "Hello, World!" << endl;
-
     if (argc != 2) {
         cout << "usage: dbms script=<filename> OR dbms \"<SQL query>\"" << endl;
     }
 
     string firstArg = argv[1];
-    if (firstArg.find("script") == 0) {
-        char* scriptFile = strtok((char*)firstArg.c_str(), "+");
-        parseScriptFile(scriptFile[1] + "");
+    if (firstArg.find("script") != string::npos) {
+        char* scriptFile = strtok((char*)firstArg.c_str(), "=");
+//        cout << scriptFile << endl;
+        parseScriptFile(scriptFile);
     } else {
         commandLineSQLInput(argv[1]);
     }
