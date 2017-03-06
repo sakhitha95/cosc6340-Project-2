@@ -99,9 +99,16 @@ bool findCreateTable(string sLineIn)
             string sTableName = sLineIn.substr(iPosStart + CREATE_TABLE_SIZE,
                                                iPosEnd - CREATE_TABLE_SIZE - 1);
 
+            cout << "table name " << sTableName << endl;
+
             //reposition the position values
             iPosStart = iPosEnd + 1;
-            iPosEnd = sLineIn.find("PRIMARY KEY", iPosStart + 1);
+            iPosEnd = sLineIn.find(", PRIMARY KEY", iPosStart + 1);
+            int primaryKeyExtra = 2;
+            if (iPosEnd == string::npos) {
+                int primaryKeyExtra = 0;
+                iPosEnd = sLineIn.find("PRIMARY KEY", iPosStart + 1);
+            }
 
             //Execute if primary key was found in string
             if (iPosEnd != std::string::npos)
@@ -110,16 +117,20 @@ bool findCreateTable(string sLineIn)
                 string sColumns = sLineIn.substr(iPosStart,
                                                  iPosEnd - iPosStart);
 
+                cout << "columns " << sColumns << endl;
+
                 //reposition the position values
-                iPosStart = iPosEnd;
+                iPosStart = iPosEnd + 1 + PRIMARY_KEY_SIZE + primaryKeyExtra;
                 iPosEnd = sLineIn.find(")", iPosStart + 1);
 
                 //execute if ')' was found in the string
                 if (iPosEnd != std::string::npos)
                 {
                     //get the primary keys
-                    string sPrimaryKeys = sLineIn.substr(iPosStart + PRIMARY_KEY_SIZE,
-                                                         iPosEnd - PRIMARY_KEY_SIZE);
+                    string sPrimaryKeys = sLineIn.substr(iPosStart,
+                                                         iPosEnd - iPosStart);
+
+                    cout << "primary keys " << sPrimaryKeys << endl;
 
                     //remove the spaces from the name of the table
                     sTableName = cleanSpaces(sTableName);
