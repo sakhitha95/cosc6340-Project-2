@@ -1,10 +1,12 @@
 #include <iostream>
 #include <stdio.h>
+#include "Parser.h"
 
 using namespace std;
 
 //string sqlQuery = "";
-string sqlQuery = "CREATE TABLE T ( C1 INT, C2 CHAR(5), C3 INT, PRIMARY KEY(C1));";
+//string sqlQuery = "CREATE TABLE T (C1 INT, C2 VARCHAR(5), C3 INT, PRIMARY KEY(C1));";
+string sqlQuery = "SHOW TABLES;";
 string scriptFile = "";
 //string scriptFile = "file";
 
@@ -21,45 +23,12 @@ const int DELETE_FROM_SIZE = 11;
 const int UPDATE_SIZE = 5;
 const int WHERE_SIZE = 5;
 const int SET_SIZE = 3;
-const int OPEN_EXIT_SHOW_SIZE = 4;
+const int OPEN_EXIT_SHOW_SIZE = 10;
 const int SINGLE_OP_SIZE = 1;
 const int DOUBLE_OP_SIZE = 2;
 const int VALUES_FROM_SIZE = 11;
 const int VAL_FROM_REL_SIZE = 20;
 const int PRIMARY_KEY_SIZE = 11;
-
-/*******************************************************************************
- Function that sees if the parenthesis are balanced in a line
- *******************************************************************************/
-bool checkParenthesis(string sLineIn)
-{
-    int iBalance = 0;
-
-    for (int i = 0; i < sLineIn.length(); ++i)
-    {
-        if (sLineIn[i] == '(')
-        {
-            iBalance++;
-        }
-        else if (sLineIn[i] == ')')
-        {
-            iBalance--;
-        }
-        if (iBalance < 0)
-        {
-            return false;
-        }
-    }
-
-    if (iBalance == 0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
 
 /*******************************************************************************
  Remove any additional spaces from the string
@@ -71,6 +40,24 @@ string cleanSpaces(string sLineIn)
     {
         //Append the value from the string into the return string, if its alpha
         if (isalnum(sLineIn[i]) || sLineIn[i] == '_' || sLineIn[i] == '/')
+        {
+            sOut += sLineIn[i];
+        }
+    }
+
+    return sOut;
+}
+
+/*******************************************************************************
+ Remove any additional spaces from the string
+ *******************************************************************************/
+string removeSpaces(string sLineIn)
+{
+    string sOut = "";
+    for (int i = 0; i < sLineIn.length(); ++i)
+    {
+        //Apend any values that are not spaces
+        if (sLineIn[i] != ' ')
         {
             sOut += sLineIn[i];
         }
@@ -149,6 +136,141 @@ bool findCreateTable(string sLineIn)
 }
 
 /*******************************************************************************
+ Function that sees if INSERT INTO is in the string and executes the command
+ handles both INSERT FROM and INSERT FROM RELATION
+ *******************************************************************************/
+bool findInsertInto(string sLineIn)
+{
+    size_t iPosStart = sLineIn.find("INSERT INTO");
+
+    if (iPosStart != std::string::npos)
+    {
+        size_t iPosEnd1 = sLineIn.find("VALUES FROM RELATION", iPosStart + 1);
+        size_t iPosEnd2 = sLineIn.find("VALUES FROM", iPosStart + 1);
+
+        //Execute if values from relation is found
+        if (iPosEnd1 != std::string::npos)
+        {
+            //Get the name of the table from the string
+            string sTableNameOut = sLineIn.substr(iPosStart + VAL_FROM_REL_SIZE,
+                                                  iPosEnd1 - VAL_FROM_REL_SIZE);
+            sTableNameOut = cleanSpaces(sTableNameOut);
+            cout << sTableNameOut << endl;
+
+            //reposition the iterators to get the row values
+            iPosStart = iPosEnd1 + 1;
+            iPosEnd1 = sLineIn.find("(");
+
+            if (iPosEnd1 != std::string::npos)
+            {
+                //Get the row attributes from the string
+                string sTableNameIn = sLineIn.substr(iPosStart + VAL_FROM_REL_SIZE,
+                                                     iPosEnd1 - VAL_FROM_REL_SIZE - 2);
+                sTableNameIn = cleanSpaces(sTableNameIn);
+
+                iPosStart = iPosEnd1;
+
+                string sRestOfLine = sLineIn.substr(iPosStart, iPosEnd1);
+
+                sRestOfLine = removeSpaces(sRestOfLine);
+
+                //WE NEED THE TREE HERE!!!!!!!!!
+
+                //Clean up and add the row to the table
+                //e.addRow(sTableNameOut, createRowVector(sRow));
+
+                return false;
+            }
+        }
+            //Execute if values from is found
+        else if (iPosEnd2 != std::string::npos)
+        {
+            //Get the name of the table from the string
+            string sTableName = sLineIn.substr(iPosStart + VALUES_FROM_SIZE,
+                                               iPosEnd2 - VALUES_FROM_SIZE);
+            sTableName = cleanSpaces(sTableName);
+            cout << sTableName << endl;
+
+            //reposition the iterators to get the row values
+            iPosStart = iPosEnd2 + 1;
+            iPosEnd2 = sLineIn.find(")");
+
+            if (iPosEnd2 != std::string::npos)
+            {
+                //Get the row attributes from the string
+                string sRow = sLineIn.substr(iPosStart + VALUES_FROM_SIZE,
+                                             iPosEnd2 - VALUES_FROM_SIZE - 2);
+
+                //Clean up and add the row to the table
+//        e.addRow(sTableName, createRowVector(sRow));
+
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+/*******************************************************************************
+ Function that sees if SHOW is in the string and executes the command
+ *******************************************************************************/
+bool findShowTable(string sLineIn)
+{
+    size_t iPosStart = sLineIn.find("SHOW TABLE");
+
+    if (iPosStart != std::string::npos)
+    {
+        //Get the name of the table from the string
+        string sTableName = sLineIn.substr(iPosStart + OPEN_EXIT_SHOW_SIZE, sLineIn.find(";"));
+        sTableName = cleanSpaces(sTableName);
+        cout << "table name " << sTableName << endl;
+
+        //call the function to display table
+//    e.displayTable(sTableName);
+
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+/*******************************************************************************
+ Function that sees if the parenthesis are balanced in a line
+ *******************************************************************************/
+bool checkParenthesis(string sLineIn)
+{
+    int iBalance = 0;
+
+    for (int i = 0; i < sLineIn.length(); ++i)
+    {
+        if (sLineIn[i] == '(')
+        {
+            iBalance++;
+        }
+        else if (sLineIn[i] == ')')
+        {
+            iBalance--;
+        }
+        if (iBalance < 0)
+        {
+            return false;
+        }
+    }
+
+    if (iBalance == 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+/*******************************************************************************
  Parse the line in and call the appropiate functions
  *******************************************************************************/
 void parse(string sLineIn)
@@ -164,31 +286,16 @@ void parse(string sLineIn)
         sLineIn.erase(0, 1);
     }
 
-    if (checkParenthesis(sLineIn))
-    {
-        if (findCreateTable(sLineIn))
-        {
+    if (checkParenthesis(sLineIn)) {
+        if (findCreateTable(sLineIn)) {
             printf("| CREATE TABLE was found in this line, executed.\n");
-        }
-//        else if (findInsertInto(sLineIn))
-//        {
-//            printf("| INSERT INTO was found in this line, executed.\n");
-//        }
-//        else if (findDeleteFrom(sLineIn))
-//        {
-//            printf("| DELETE FROM was found in this line, executed.\n");
-//        }
-//        else if (findUpdate(sLineIn))
-//        {
-//            printf("| UPDATE was found in this line, executed.\n");
-//        }
-//        else if (findShow(sLineIn))
-//        {
-//            printf("| SHOW was found in this line, executed.\n");
-//        }
-        else
-        {
-            printf("| None of the lines executed\n");
+        } else if (findInsertInto(sLineIn)) {
+        } else if (sLineIn == "QUIT;") {
+            cout << "Finished;" << endl;
+        } else if (sLineIn == "SHOW TABLES;") { // needs to go before findShowTable
+            cout << "Show tables" << endl;
+        } else if (findShowTable(sLineIn)) {
+            cout << "Show table" << endl;
         }
     }
     else
@@ -197,6 +304,8 @@ void parse(string sLineIn)
     }
 
 }
+
+Parser parser;
 
 void parseSQLQuery(string SQL) {
     if (SQL.find_first_of("C") == 0) {
@@ -233,7 +342,7 @@ void commandLineSQLInput(string SQL) {
             }
         }
 
-        parse(SQL);
+        parse(sqlQuery);
 
         // for testing
         SQL = "";
@@ -254,6 +363,8 @@ int main(int argc, char *argv[]) {
         }
         return 0;
     }
+
+    //parser* = new Parser();
 
     string firstArg = argv[1];
     if (firstArg.find("script") != string::npos) {
