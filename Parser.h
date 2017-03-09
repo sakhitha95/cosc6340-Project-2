@@ -52,7 +52,7 @@ public:
 
   bool readFromFile(string sFileName);
   bool writeToFile(string sFileName);
-  void parse(string sLineIn);
+  int parse(string sLineIn);
   void validate();
 
   //Grammar functions
@@ -60,11 +60,12 @@ public:
   bool findInsertInto(string sLineIn);
   bool findDeleteFrom(string sLineIn);
   bool findUpdate(string sLineIn);
-  bool findShow(string sLineIn);
+  bool findShowTable(string sLineIn);
+  bool findShowTables(string sLineIn);
   bool findWrite(string sLineIn);
   bool findOpen(string sLineIn);
   bool findClose(string sLineIn);
-  bool findExit(string sLineIn);
+  bool findQuit(string sLineIn);
   bool findArrow(string sLineIn);
   string getAfterArrow(string sLineIn);
 
