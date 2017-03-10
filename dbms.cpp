@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <cstring>
+#include <string>
 #include "Parser.h"
 
 using namespace std;
@@ -46,13 +47,19 @@ void parseSQLQuery(string SQL) {
     }
 }
 
+string toUpper(string str) {
+	//return std::transform(str.begin(), str.end(), str.begin(), ::toupper);
+}
+
 void parseScriptFile(string scriptFile) {
+	//scriptFile = toUpper(scriptFile);
     cout << scriptFile << endl;
 }
 
 void commandLineSQLInput(string sqlQuery) {
     //cout << sqlQuery << endl;
     while (true) {
+    	//sqlQuery = toUpper(sqlQuery);
         // for production
 //        SQL = "";
 //        cout << "SQL > ";

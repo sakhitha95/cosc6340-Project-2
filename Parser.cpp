@@ -135,7 +135,8 @@ string Parser::cleanSpaces(string sLineIn)
   for (int i = 0; i < sLineIn.length(); ++i)
   {
     //Append the value from the string into the return string, if its alpha
-    if (isalnum(sLineIn[i]) || sLineIn[i] == '_' || sLineIn[i] == '/')
+    if (isalnum(sLineIn[i]) || sLineIn[i] == '_' || sLineIn[i] == '/' ||
+    	sLineIn[i] == '*')
     {
       sOut += sLineIn[i];
     }
@@ -180,6 +181,8 @@ cout << sLineIn << endl;
         printf("| CREATE TABLE was found in this line, executed.\n");
     } else if (findInsertInto(sLineIn)) {
    	  	cout << "Insert Into found" << endl;
+   	} else if (findSelect(sLineIn)) {
+     	cout << "Select found" << endl;
 	} else if (findQuit(sLineIn)) {
         cout << "Finished;" << endl;
         return 0;
@@ -264,6 +267,42 @@ bool Parser::findCreateTable(string sLineIn)
     }
 
     return false;
+}
+
+bool Parser::findSelect(string sLineIn)
+{
+	size_t iPosStart = sLineIn.find("SELECT");
+	
+	if (iPosStart != std::string::npos)
+	{
+		cout << "Select found" << endl;
+		iPosStart += 6;
+		size_t iPosEnd1 = sLineIn.find("FROM", iPosStart);
+		
+		if (iPosEnd1 != std::string::npos)
+		{
+			cout << "From found" << endl;
+			string colNames = sLineIn.substr(iPosStart,
+											iPosEnd1 - iPosStart);
+			colNames = cleanSpaces(colNames);
+			cout << "colNames " << colNames << endl;
+			
+			iPosStart = iPosEnd1 + 4;
+			cout << iPosStart << endl;
+			iPosEnd1 = sLineIn.find(";", iPosStart);
+			cout << iPosEnd1 << endl;
+			
+			if (iPosEnd1 != std::string::npos)
+			{
+				cout << "found semicolon" << endl;
+				string tableName = sLineIn.substr(iPosStart,
+												iPosEnd1 - iPosStart);
+				cout << "tableName " << tableName << endl;
+			}
+		}
+	}
+	
+	return false;
 }
 
 /*******************************************************************************
