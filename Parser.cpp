@@ -43,6 +43,8 @@ const int VALUES_FROM_SIZE = 11;
 const int VAL_FROM_REL_SIZE = 20;
 const int PRIMARY_KEY_SIZE = 11;
 
+static int nestedLevel = 0;
+
 //Array of String identifiers for non-symbolic operations
 static const string expr[] =
 { "select", "project", "rename", "natural-join" };
@@ -168,6 +170,7 @@ string Parser::removeSpaces(string sLineIn)
  *******************************************************************************/
 int Parser::parse(string sLineIn)
 {
+	nestedLevel = 0;
   //Declare and initialize variables
   //string sTemp;
 
@@ -288,18 +291,33 @@ bool Parser::findSelect(string sLineIn)
 			cout << "colNames " << colNames << endl;
 			
 			iPosStart = iPosEnd1 + 4;
-			cout << iPosStart << endl;
-			iPosEnd1 = sLineIn.find(";", iPosStart);
-			cout << iPosEnd1 << endl;
 			
-			if (iPosEnd1 != std::string::npos)
-			{
-				cout << "found semicolon" << endl;
-				string tableName = sLineIn.substr(iPosStart,
-												iPosEnd1 - iPosStart);
-				cout << "tableName " << tableName << endl;
+			size_t nestedSelectPos = sLineIn.find("(", iPosStart);
+			if (nestedSelectPos != std::string::npos) {
+				nestedLevel++;
+				cout << "nested select " << nestedLevel << endl;
+				if (nestedLevel > 3) {
+					cout << "Too many nested SELECT statements" << endl;
+					return false;
+				}
+				string nestedSelect = sLineIn.substr(nestedSelectPos+1, sLineIn.find(")"));
+				this->findSelect(nestedSelect);
+			} else {
+				iPosEnd1 = sLineIn.find(nestedLevel == 0 ? ";" : ")", iPosStart);
+			
+				if (iPosEnd1 != std::string::npos)
+				{
+					cout << "found semicolon" << endl;
+					string tableName = sLineIn.substr(iPosStart,
+													iPosEnd1 - iPosStart);
+					cout << "tableName " << tableName << endl;
+				} else {
+					//cout << "ERROR: semicolon required" << endl;
+				}
 			}
 		}
+	} else if (nestedLevel > 0) {
+		return false;
 	}
 	
 	return false;
