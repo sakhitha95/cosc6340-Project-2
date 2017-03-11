@@ -29,6 +29,7 @@
 #include <stdio.h>
 #include <cstring>
 #include <stack>
+#include "Table.h"
 //#include "../../Downloads/DBMS-master/Engine.h"
 using namespace std;
 

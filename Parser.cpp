@@ -45,6 +45,8 @@ const int PRIMARY_KEY_SIZE = 11;
 
 static int nestedLevel = 0;
 
+stack <Table> stack;
+
 //Array of String identifiers for non-symbolic operations
 static const string expr[] =
 { "select", "project", "rename", "natural-join" };

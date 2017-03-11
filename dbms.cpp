@@ -29,7 +29,6 @@ const int VAL_FROM_REL_SIZE = 20;
 const int PRIMARY_KEY_SIZE = 11;
 
 Parser* parser;
-	stack <string> stack;
 
 void parseSQLQuery(string SQL) {
     if (SQL.find_first_of("C") == 0) {
