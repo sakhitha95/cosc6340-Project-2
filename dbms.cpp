@@ -1,7 +1,3 @@
-#include <iostream>
-#include <stdio.h>
-#include <cstring>
-#include <string>
 #include "Parser.h"
 
 using namespace std;
@@ -33,6 +29,7 @@ const int VAL_FROM_REL_SIZE = 20;
 const int PRIMARY_KEY_SIZE = 11;
 
 Parser* parser;
+	stack <string> stack;
 
 void parseSQLQuery(string SQL) {
     if (SQL.find_first_of("C") == 0) {
@@ -48,18 +45,21 @@ void parseSQLQuery(string SQL) {
 }
 
 string toUpper(string str) {
-	//return std::transform(str.begin(), str.end(), str.begin(), ::toupper);
+	for (int i = 0; i < str.length(); i++) {
+		str[i] = toupper(str[i]);
+	}
+	return str;
 }
 
 void parseScriptFile(string scriptFile) {
-	//scriptFile = toUpper(scriptFile);
+	scriptFile = toUpper(scriptFile);
     cout << scriptFile << endl;
 }
 
 void commandLineSQLInput(string sqlQuery) {
     //cout << sqlQuery << endl;
     while (true) {
-    	//sqlQuery = toUpper(sqlQuery);
+    	sqlQuery = toUpper(sqlQuery);
         // for production
 //        SQL = "";
 //        cout << "SQL > ";

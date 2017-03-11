@@ -26,6 +26,9 @@
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
+#include <stdio.h>
+#include <cstring>
+#include <stack>
 //#include "../../Downloads/DBMS-master/Engine.h"
 using namespace std;
 
