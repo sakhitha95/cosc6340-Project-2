@@ -43,10 +43,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/amirreza/CLionProjects/git1
+CMAKE_SOURCE_DIR = /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/amirreza/CLionProjects/git1/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/git2.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/git2.dir/flags.make
 
 CMakeFiles/git2.dir/main.cpp.o: CMakeFiles/git2.dir/flags.make
 CMakeFiles/git2.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/amirreza/CLionProjects/git1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/git2.dir/main.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/git2.dir/main.cpp.o -c /Users/amirreza/CLionProjects/git1/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/git2.dir/main.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/git2.dir/main.cpp.o -c /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/main.cpp
 
 CMakeFiles/git2.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/git2.dir/main.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/amirreza/CLionProjects/git1/main.cpp > CMakeFiles/git2.dir/main.cpp.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/main.cpp > CMakeFiles/git2.dir/main.cpp.i
 
 CMakeFiles/git2.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/git2.dir/main.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/amirreza/CLionProjects/git1/main.cpp -o CMakeFiles/git2.dir/main.cpp.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/main.cpp -o CMakeFiles/git2.dir/main.cpp.s
 
 CMakeFiles/git2.dir/main.cpp.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/git2.dir/main.cpp.o.provides.build: CMakeFiles/git2.dir/main.cpp.o
 
 CMakeFiles/git2.dir/parser.cpp.o: CMakeFiles/git2.dir/flags.make
 CMakeFiles/git2.dir/parser.cpp.o: ../parser.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/amirreza/CLionProjects/git1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/git2.dir/parser.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/git2.dir/parser.cpp.o -c /Users/amirreza/CLionProjects/git1/parser.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/git2.dir/parser.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/git2.dir/parser.cpp.o -c /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/parser.cpp
 
 CMakeFiles/git2.dir/parser.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/git2.dir/parser.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/amirreza/CLionProjects/git1/parser.cpp > CMakeFiles/git2.dir/parser.cpp.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/parser.cpp > CMakeFiles/git2.dir/parser.cpp.i
 
 CMakeFiles/git2.dir/parser.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/git2.dir/parser.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/amirreza/CLionProjects/git1/parser.cpp -o CMakeFiles/git2.dir/parser.cpp.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/parser.cpp -o CMakeFiles/git2.dir/parser.cpp.s
 
 CMakeFiles/git2.dir/parser.cpp.o.requires:
 
@@ -107,16 +107,16 @@ CMakeFiles/git2.dir/parser.cpp.o.provides.build: CMakeFiles/git2.dir/parser.cpp.
 
 CMakeFiles/git2.dir/table.cpp.o: CMakeFiles/git2.dir/flags.make
 CMakeFiles/git2.dir/table.cpp.o: ../table.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/amirreza/CLionProjects/git1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/git2.dir/table.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/git2.dir/table.cpp.o -c /Users/amirreza/CLionProjects/git1/table.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/git2.dir/table.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/git2.dir/table.cpp.o -c /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/table.cpp
 
 CMakeFiles/git2.dir/table.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/git2.dir/table.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/amirreza/CLionProjects/git1/table.cpp > CMakeFiles/git2.dir/table.cpp.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/table.cpp > CMakeFiles/git2.dir/table.cpp.i
 
 CMakeFiles/git2.dir/table.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/git2.dir/table.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/amirreza/CLionProjects/git1/table.cpp -o CMakeFiles/git2.dir/table.cpp.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/table.cpp -o CMakeFiles/git2.dir/table.cpp.s
 
 CMakeFiles/git2.dir/table.cpp.o.requires:
 
@@ -143,7 +143,7 @@ git2: CMakeFiles/git2.dir/parser.cpp.o
 git2: CMakeFiles/git2.dir/table.cpp.o
 git2: CMakeFiles/git2.dir/build.make
 git2: CMakeFiles/git2.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/amirreza/CLionProjects/git1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable git2"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable git2"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/git2.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -162,6 +162,6 @@ CMakeFiles/git2.dir/clean:
 .PHONY : CMakeFiles/git2.dir/clean
 
 CMakeFiles/git2.dir/depend:
-	cd /Users/amirreza/CLionProjects/git1/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/amirreza/CLionProjects/git1 /Users/amirreza/CLionProjects/git1 /Users/amirreza/CLionProjects/git1/cmake-build-debug /Users/amirreza/CLionProjects/git1/cmake-build-debug /Users/amirreza/CLionProjects/git1/cmake-build-debug/CMakeFiles/git2.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2 /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2 /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug/CMakeFiles/git2.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/git2.dir/depend
 

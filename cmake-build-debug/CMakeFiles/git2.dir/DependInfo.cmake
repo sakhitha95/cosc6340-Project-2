@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/amirreza/CLionProjects/git1/main.cpp" "/Users/amirreza/CLionProjects/git1/cmake-build-debug/CMakeFiles/git2.dir/main.cpp.o"
-  "/Users/amirreza/CLionProjects/git1/parser.cpp" "/Users/amirreza/CLionProjects/git1/cmake-build-debug/CMakeFiles/git2.dir/parser.cpp.o"
-  "/Users/amirreza/CLionProjects/git1/table.cpp" "/Users/amirreza/CLionProjects/git1/cmake-build-debug/CMakeFiles/git2.dir/table.cpp.o"
+  "/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/main.cpp" "/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug/CMakeFiles/git2.dir/main.cpp.o"
+  "/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/parser.cpp" "/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug/CMakeFiles/git2.dir/parser.cpp.o"
+  "/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/table.cpp" "/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug/CMakeFiles/git2.dir/table.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

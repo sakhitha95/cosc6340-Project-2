@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/amirreza/CLionProjects/git1/Parser.h
+/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/Parser.h
 string
 -
 vector
@@ -24,9 +24,9 @@ cstring
 stack
 -
 Table.h
-/Users/amirreza/CLionProjects/git1/Table.h
+/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/Table.h
 
-/Users/amirreza/CLionProjects/git1/Table.h
+/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/Table.h
 string
 -
 vector
@@ -40,7 +40,7 @@ iomanip
 tuple
 -
 
-/Users/amirreza/CLionProjects/git1/main.cpp
+/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/main.cpp
 string
 -
 vector
@@ -54,11 +54,11 @@ iomanip
 tuple
 -
 Parser.h
-/Users/amirreza/CLionProjects/git1/Parser.h
+/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/Parser.h
 
-/Users/amirreza/CLionProjects/git1/parser.cpp
+/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/parser.cpp
 Parser.h
-/Users/amirreza/CLionProjects/git1/Parser.h
+/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/Parser.h
 string
 -
 vector
@@ -74,7 +74,7 @@ iostream
 iomanip
 -
 
-/Users/amirreza/CLionProjects/git1/table.cpp
+/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/table.cpp
 string
 -
 vector
@@ -90,5 +90,5 @@ tuple
 fstream
 -
 Table.h
-/Users/amirreza/CLionProjects/git1/Table.h
+/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/Table.h
 
