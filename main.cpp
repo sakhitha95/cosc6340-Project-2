@@ -21,7 +21,7 @@ int main() {
                 sAgain = "0";
             } else {
                 pCommandLineTest.parse(sLineIn);
-                //cout << "parse" << endl;
+                cout << "parse" << endl;
             }
             //printf("Enter another line? 1 or 0: ");
             //getline(cin, sAgain);
