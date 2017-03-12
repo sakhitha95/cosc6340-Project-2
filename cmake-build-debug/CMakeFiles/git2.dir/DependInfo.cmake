@@ -4,7 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/devincrane/CLionProjects/DBMS/dbms.cpp" "/Users/devincrane/CLionProjects/DBMS/cmake-build-debug/CMakeFiles/DBMS.dir/dbms.cpp.o"
+  "/Users/amirreza/CLionProjects/git1/main.cpp" "/Users/amirreza/CLionProjects/git1/cmake-build-debug/CMakeFiles/git2.dir/main.cpp.o"
+  "/Users/amirreza/CLionProjects/git1/parser.cpp" "/Users/amirreza/CLionProjects/git1/cmake-build-debug/CMakeFiles/git2.dir/parser.cpp.o"
+  "/Users/amirreza/CLionProjects/git1/table.cpp" "/Users/amirreza/CLionProjects/git1/cmake-build-debug/CMakeFiles/git2.dir/table.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
