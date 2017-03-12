@@ -48,10 +48,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/devincrane/CLionProjects/DBMS
+CMAKE_SOURCE_DIR = /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/devincrane/CLionProjects/DBMS/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/devincrane/CLionProjects/DBMS/cmake-build-debug/CMakeFiles /Users/devincrane/CLionProjects/DBMS/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug/CMakeFiles /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/devincrane/CLionProjects/DBMS/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,44 +111,98 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named DBMS
+# Target rules for targets named git2
 
 # Build rule for target.
-DBMS: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 DBMS
-.PHONY : DBMS
+git2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 git2
+.PHONY : git2
 
 # fast build rule for target.
-DBMS/fast:
-	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/build
-.PHONY : DBMS/fast
+git2/fast:
+	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/build
+.PHONY : git2/fast
 
-dbms.o: dbms.cpp.o
+main.o: main.cpp.o
 
-.PHONY : dbms.o
+.PHONY : main.o
 
 # target to build an object file
-dbms.cpp.o:
-	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/dbms.cpp.o
-.PHONY : dbms.cpp.o
+main.cpp.o:
+	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/main.cpp.o
+.PHONY : main.cpp.o
 
-dbms.i: dbms.cpp.i
+main.i: main.cpp.i
 
-.PHONY : dbms.i
+.PHONY : main.i
 
 # target to preprocess a source file
-dbms.cpp.i:
-	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/dbms.cpp.i
-.PHONY : dbms.cpp.i
+main.cpp.i:
+	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/main.cpp.i
+.PHONY : main.cpp.i
 
-dbms.s: dbms.cpp.s
+main.s: main.cpp.s
 
-.PHONY : dbms.s
+.PHONY : main.s
 
 # target to generate assembly for a file
-dbms.cpp.s:
-	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/dbms.cpp.s
-.PHONY : dbms.cpp.s
+main.cpp.s:
+	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/main.cpp.s
+.PHONY : main.cpp.s
+
+parser.o: parser.cpp.o
+
+.PHONY : parser.o
+
+# target to build an object file
+parser.cpp.o:
+	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/parser.cpp.o
+.PHONY : parser.cpp.o
+
+parser.i: parser.cpp.i
+
+.PHONY : parser.i
+
+# target to preprocess a source file
+parser.cpp.i:
+	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/parser.cpp.i
+.PHONY : parser.cpp.i
+
+parser.s: parser.cpp.s
+
+.PHONY : parser.s
+
+# target to generate assembly for a file
+parser.cpp.s:
+	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/parser.cpp.s
+.PHONY : parser.cpp.s
+
+table.o: table.cpp.o
+
+.PHONY : table.o
+
+# target to build an object file
+table.cpp.o:
+	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/table.cpp.o
+.PHONY : table.cpp.o
+
+table.i: table.cpp.i
+
+.PHONY : table.i
+
+# target to preprocess a source file
+table.cpp.i:
+	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/table.cpp.i
+.PHONY : table.cpp.i
+
+table.s: table.cpp.s
+
+.PHONY : table.s
+
+# target to generate assembly for a file
+table.cpp.s:
+	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/table.cpp.s
+.PHONY : table.cpp.s
 
 # Help Target
 help:
@@ -158,10 +212,16 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... DBMS"
-	@echo "... dbms.o"
-	@echo "... dbms.i"
-	@echo "... dbms.s"
+	@echo "... git2"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
+	@echo "... parser.o"
+	@echo "... parser.i"
+	@echo "... parser.s"
+	@echo "... table.o"
+	@echo "... table.i"
+	@echo "... table.s"
 .PHONY : help
 
 

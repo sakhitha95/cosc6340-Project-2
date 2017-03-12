@@ -54,45 +54,45 @@ RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/devincrane/CLionProjects/DBMS
+CMAKE_SOURCE_DIR = /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/devincrane/CLionProjects/DBMS/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug
 
 #=============================================================================
-# Target rules for target CMakeFiles/DBMS.dir
+# Target rules for target CMakeFiles/git2.dir
 
 # All Build rule for target.
-CMakeFiles/DBMS.dir/all:
-	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/depend
-	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/devincrane/CLionProjects/DBMS/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target DBMS"
-.PHONY : CMakeFiles/DBMS.dir/all
+CMakeFiles/git2.dir/all:
+	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/depend
+	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4 "Built target git2"
+.PHONY : CMakeFiles/git2.dir/all
 
 # Include target in all.
-all: CMakeFiles/DBMS.dir/all
+all: CMakeFiles/git2.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/DBMS.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/devincrane/CLionProjects/DBMS/cmake-build-debug/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/DBMS.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/devincrane/CLionProjects/DBMS/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/DBMS.dir/rule
+CMakeFiles/git2.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/git2.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/git2.dir/rule
 
 # Convenience name for target.
-DBMS: CMakeFiles/DBMS.dir/rule
+git2: CMakeFiles/git2.dir/rule
 
-.PHONY : DBMS
-
-# clean rule for target.
-CMakeFiles/DBMS.dir/clean:
-	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/clean
-.PHONY : CMakeFiles/DBMS.dir/clean
+.PHONY : git2
 
 # clean rule for target.
-clean: CMakeFiles/DBMS.dir/clean
+CMakeFiles/git2.dir/clean:
+	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/clean
+.PHONY : CMakeFiles/git2.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/git2.dir/clean
 
 .PHONY : clean
 

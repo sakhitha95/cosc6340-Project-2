@@ -48,5 +48,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/DBMS.dir/DependInfo.cmake"
+  "CMakeFiles/git2.dir/DependInfo.cmake"
   )
