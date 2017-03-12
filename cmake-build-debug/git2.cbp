@@ -80,6 +80,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/engine.cpp">
+			<Option target="git2"/>
+		</Unit>
+		<Unit filename="/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/engine.h">
+			<Option target="git2"/>
+		</Unit>
 		<Unit filename="/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/main.cpp">
 			<Option target="git2"/>
 		</Unit>

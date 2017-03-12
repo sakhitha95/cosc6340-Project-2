@@ -3,5 +3,5 @@ project(git2)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp parser.h parser.cpp table.h table.cpp)
+set(SOURCE_FILES main.cpp parser.h parser.cpp table.h table.cpp engine.cpp engine.h)
 add_executable(git2 ${SOURCE_FILES})
