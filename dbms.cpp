@@ -1,3 +1,4 @@
+#include <fstream>
 #include "Parser.h"
 
 using namespace std;
@@ -51,15 +52,31 @@ string toUpper(string str) {
 }
 
 void parseScriptFile(string scriptFile) {
-	scriptFile = toUpper(scriptFile);
     cout << scriptFile << endl;
+    
+    ifstream script(scriptFile);
+    //script.open
+    string line = "";
+    if (script.is_open()) {
+		while (getline(script, line)) {
+			cout << line << endl;
+	    	line = toUpper(line);
+			if (parser->parse(line) == 0) {
+		    	return;
+		    }
+		}
+		
+		cout << "Finished reading sql script" << endl;
+    } else {
+    	cout << "ERROR: could not open " << scriptFile << ". Was it named correctly?" << endl;
+    }
 }
 
 void commandLineSQLInput(string sqlQuery) {
     //cout << sqlQuery << endl;
     while (true) {
     	sqlQuery = toUpper(sqlQuery);
-        // for production
+        // for production - don't -think- this is needed anymore
 //        SQL = "";
 //        cout << "SQL > ";
 //        getline(cin, SQL);
@@ -95,8 +112,14 @@ int main(int argc, char *argv[]) {
 	//cout << firstArg << endl;
     if (firstArg.find("script") != string::npos) {
         char* scriptFile = strtok((char*)firstArg.c_str(), "=");
-//        cout << scriptFile << endl;
-        parseScriptFile(scriptFile);
+        scriptFile = strtok(NULL, "="); // Advance to actual script file name
+		if (scriptFile == NULL) {
+			cout << "ERROR: no sql script could be found" << endl;
+			return 0;
+		}
+		
+		//cout << scriptFile << endl;
+	    parseScriptFile(scriptFile);
     } else {
         commandLineSQLInput(firstArg);
     }
