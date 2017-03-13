@@ -1,7 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/git2.dir/main.cpp.o"
+  "CMakeFiles/git2.dir/dbms.cpp.o"
   "CMakeFiles/git2.dir/parser.cpp.o"
   "CMakeFiles/git2.dir/table.cpp.o"
+  "CMakeFiles/git2.dir/engine.cpp.o"
   "git2.pdb"
   "git2"
 )

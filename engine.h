@@ -33,11 +33,14 @@ public:
      ****************************************************************************/
     void displayTable(string sTableNameIn)
     {
+        printf("display tableeeeeeeeeee");
         for (int i = 0; i < vTableList.size(); ++i)
         {
             if (vTableList[i].getTableName() == sTableNameIn)
             {
+                printf("| The table was found\n");
                 vTableList[i].displayTable();
+
                 return;
             }
         }

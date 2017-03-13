@@ -1,7 +1,18 @@
-//
-// Created by amirreza shirani on 3/11/17.
-//
-
+/*******************************************************************************
+ File: Parser.h
+ Authors: Gustavo Pedroso UIN: 423002834
+ Levi Clark      UIN: 520007880
+ Terry Chen      UIN: 121007055
+ Daniel He       UIN: 620006827
+ Department of Computer Science
+ Texas A&M University
+ Date  : 2/2/2014
+ Formatting: * 80 pt width is used for code, for the most part
+ * Hungarian naming convention is used for variables
+ * Comments are applied for explanations
+ * Spacing and brackets are applied for readability
+ This file contains the header for the parser
+ *******************************************************************************/
 
 #ifndef PARSER_H
 #define PARSER_H
@@ -15,6 +26,7 @@
 #include <cstring>
 #include <stack>
 #include "Table.h"
+#include "engine.h"
 //#include "../../Downloads/DBMS-master/Engine.h"
 using namespace std;
 
@@ -23,7 +35,7 @@ class Parser
 private:
     //Declare private variables
     vector<string> vValuesRead;
-//  Engine e;
+    Engine e;
 
 public:
     //Tree data structure
@@ -57,9 +69,9 @@ public:
     string getAfterArrow(string sLineIn);
 
     //helper functions
-//  vector<tuple<string, string, bool> > createColVector(string sLineIn);
-//  vector<string> createVector(string sLineIn);
-//  vector<tuple<int, string> > createRowVector(string sLineIn);
+    vector<tuple<string, string, bool> > createColVector(string sLineIn);
+    vector<string> createVector(string sLineIn);
+    vector<tuple<int, string> > createRowVector(string sLineIn);
     string cleanSpaces(string sLineIn);
     string removeSpaces(string sLineIn);
     bool checkParenthesis(string sLineIn);
@@ -78,5 +90,4 @@ public:
 //  }
 };
 
-
-#endif //GIT2_PARSER_H
+#endif
