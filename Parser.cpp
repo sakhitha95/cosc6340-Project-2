@@ -44,6 +44,8 @@ const int VAL_FROM_REL_SIZE = 20;
 const int PRIMARY_KEY_SIZE = 11;
 
 static int nestedLevel = 0;
+static int returningNestedLevel = 1;
+static string origQuery = "";
 
 stack <Table> stack;
 
@@ -178,7 +180,8 @@ int Parser::parse(string sLineIn)
 
   //Output the line we are working with so we know we have the parsing correct
   //printf("\n%s\n", sLineIn.c_str());
-cout << sLineIn << endl;
+	cout << sLineIn << endl;
+	origQuery = sLineIn;
   if (checkParenthesis(sLineIn))
   {
   	cout << "parenthesis ok" << endl;
@@ -229,7 +232,7 @@ bool Parser::findCreateTable(string sLineIn)
 
             //reposition the position values
             iPosStart = iPosEnd + 1;
-            iPosEnd = sLineIn.find(", PRIMARY KEY", iPosStart + 1);
+            iPosEnd = sLineIn.find("PRIMARY KEY", iPosStart + 1);
             int primaryKeyExtra = 2;
             if (iPosEnd == string::npos) {
                 int primaryKeyExtra = 0;
@@ -246,8 +249,9 @@ bool Parser::findCreateTable(string sLineIn)
                 cout << "columns " << sColumns << endl;
 
                 //reposition the position values
-                iPosStart = iPosEnd + 1 + PRIMARY_KEY_SIZE + primaryKeyExtra;
-                iPosEnd = sLineIn.find(")", iPosStart + 1);
+                iPosStart = iPosEnd;
+                iPosStart = sLineIn.find("(", iPosEnd) + 1;
+                iPosEnd = sLineIn.find(")", iPosStart);
 
                 //execute if ')' was found in the string
                 if (iPosEnd != std::string::npos)
@@ -289,7 +293,6 @@ bool Parser::findSelect(string sLineIn)
 			cout << "From found" << endl;
 			string colNames = sLineIn.substr(iPosStart,
 											iPosEnd1 - iPosStart);
-			colNames = cleanSpaces(colNames);
 			cout << "colNames " << colNames << endl;
 			
 			iPosStart = iPosEnd1 + 4;
@@ -297,24 +300,61 @@ bool Parser::findSelect(string sLineIn)
 			size_t nestedSelectPos = sLineIn.find("(", iPosStart);
 			if (nestedSelectPos != std::string::npos) {
 				nestedLevel++;
-				cout << "nested select " << nestedLevel << endl;
+				cout << "detected nested query" << endl;
 				if (nestedLevel > 3) {
 					cout << "Too many nested SELECT statements" << endl;
 					return false;
 				}
-				string nestedSelect = sLineIn.substr(nestedSelectPos+1, sLineIn.find(")"));
+				iPosStart += sLineIn.find("FROM") + 4;
+				string nestedSelect = sLineIn.substr(nestedSelectPos+1);
+				
+				// recursion starts
 				this->findSelect(nestedSelect);
-			} else {
-				iPosEnd1 = sLineIn.find(nestedLevel == 0 ? ";" : ")", iPosStart);
-			
+				cout << "returned from recursion" << endl;
+				// ok, now start using origQuery
+				
+				// find temporary table name
+				iPosStart = origQuery.find(")", returningNestedLevel) + 1;
+				iPosEnd1 = origQuery.find(")", iPosStart);
+				
+				if (iPosEnd1 == std::string::npos) {
+					iPosEnd1 = origQuery.find(";", iPosStart);
+				} else {
+					cout << "ERROR: semicolon required" << endl;
+					//return false;
+				}
+				
 				if (iPosEnd1 != std::string::npos)
 				{
-					cout << "found semicolon" << endl;
-					string tableName = sLineIn.substr(iPosStart,
+					string tableName = origQuery.substr(iPosStart,
 													iPosEnd1 - iPosStart);
+					tableName = cleanSpaces(tableName);
+					returningNestedLevel = iPosEnd1 - 1;
 					cout << "tableName " << tableName << endl;
+					cout << "colNames " << colNames << endl;
+					return true;
+				}
+			} else {
+				if (nestedLevel == 0) {
+					iPosEnd1 = sLineIn.find(";", iPosStart);
+					if (iPosEnd1 != std::string::npos)
+					{
+						cout << "found semicolon" << endl;
+					} else {
+						cout << "ERROR: semicolon required" << endl;
+						return false;
+					}
 				} else {
-					//cout << "ERROR: semicolon required" << endl;
+					iPosEnd1 = sLineIn.find(")", iPosStart);
+					returningNestedLevel = iPosEnd1 - 1;
+					if (iPosEnd1 != std::string::npos)
+					{
+						//cout << sLineIn << endl;
+						string tableName = sLineIn.substr(iPosStart,
+														iPosEnd1 - iPosStart);
+						cout << "tableName " << tableName << endl;
+						return true;
+					}
 				}
 			}
 		}
