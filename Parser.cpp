@@ -390,8 +390,8 @@ bool Parser::findInsertInto(string sLineIn)
             //Get the name of the table from the string
             string sTableNameOut = sLineIn.substr(iPosStart,
                                                   iPosEnd1 - iPosStart);
-            //sTableNameOut = cleanSpaces(sTableNameOut);
-            //cout << sTableNameOut << endl;
+            sTableNameOut = cleanSpaces(sTableNameOut);
+            cout << sTableNameOut << endl;
 
             //reposition the iterators to get the row values
             iPosStart = sLineIn.find("("); + 1;

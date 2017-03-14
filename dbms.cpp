@@ -57,14 +57,29 @@ void parseScriptFile(string scriptFile) {
     ifstream script(scriptFile);
     //script.open
     string line = "";
+    string queries = "";
     if (script.is_open()) {
+    	//cout << "open" << endl;
 		while (getline(script, line)) {
-			cout << line << endl;
-	    	line = toUpper(line);
-			if (parser->parse(line) == 0) {
-		    	return;
-		    }
+			queries += toUpper(line);
+			cout << queries << endl;
+			size_t firstSemicolon = line.find(";");
+			if (firstSemicolon != string::npos) {
+				parser->parse(queries);
+			}
 		}
+		
+		/*while (true) {
+			size_t firstSemicolon = queries.find_first_of(";");
+			if (firstSemicolon == string::npos || queries.length() == 0) {
+		    	cout << "End of queries that end in a semicolon" << endl;
+		    	break;
+		    } else {
+			    string query = queries.substr(0, firstSemicolon);
+				parser->parse(query);
+				queries = queries.substr(firstSemicolon, queries.length() - firstSemicolon);
+			}
+		}*/
 		
 		cout << "Finished reading sql script" << endl;
     } else {
