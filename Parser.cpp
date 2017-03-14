@@ -49,7 +49,7 @@ static int returningNestedLevel = 1;
 static string origQuery = "";
 
 stack <Table> stack;
-
+vector<string> vValuesRead;
 //Array of String identifiers for non-symbolic operations
 static const string expr[] =
 { "select", "project", "rename", "natural-join" };
@@ -68,6 +68,7 @@ static const string allOp[] =
 
 const string sError = "ERR:: INVALID INPUT";
 
+<<<<<<< Updated upstream
 /*******************************************************************************
  Read a file and call parse function on each line read
  *******************************************************************************/
@@ -132,6 +133,10 @@ bool Parser::writeToFile(string sFilename)
   outputFile.close();
   return true;
 }
+=======
+
+
+>>>>>>> Stashed changes
 
 /*******************************************************************************
  Remove any additional spaces from the string
@@ -199,7 +204,8 @@ int Parser::parse(string sLineIn)
             cout << "Show table" << endl;
         } else if (findShowTables(sLineIn)) {
             cout << "Show tables" << endl;
-        } else {
+        }
+        else {
             printf("| None of the lines executed\n");
         }
     } else {
@@ -708,4 +714,7 @@ vector<tuple<string, string, bool> > Parser::createColVector(string sLineIn)
     }
     return vColVectorOut;
 }
+
+
+
 

@@ -38,7 +38,7 @@ class Parser
 {
 private:
     //Declare private variables
-    vector<string> vValuesRead;
+//    vector<string> vValuesRead;
     Engine e;
 
 public:
