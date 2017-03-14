@@ -37,7 +37,6 @@ using namespace std;
 class Parser
 {
 private:
-<<<<<<< HEAD
     //Declare private variables
     vector<string> vValuesRead;
     Engine e;

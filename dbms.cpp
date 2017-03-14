@@ -8,6 +8,8 @@ string sqlQuery = "CREATE TABLE T (C1 INT, C2 VARCHAR(5), C3 INT, PRIMARY KEY(C1
 //string sqlQuery = "INSERT INTO T VALUES(1,'string',5);";
 //string sqlQuery="SHOW TABLE T;";
 
+//string sqlQuery = "CREATE TABLE T (C1 INT, C2 VARCHAR(5), C3 INT, PRIMARY KEY(C1));";
+string sqlQuery = "INSERT INTO T VALUES(1,'string',5);";
 string scriptFile = "";
 //string scriptFile = "file";
 
@@ -55,7 +57,6 @@ string toUpper(string str) {
 
 void parseScriptFile(string scriptFile) {
     cout << scriptFile << endl;
-
     ifstream script(scriptFile);
     //script.open
     string line = "";

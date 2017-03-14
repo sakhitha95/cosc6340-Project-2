@@ -1,11 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/DBMS.dir/dbms.cpp.o"
-<<<<<<< HEAD
   "CMakeFiles/DBMS.dir/parser.cpp.o"
   "CMakeFiles/DBMS.dir/table.cpp.o"
   "CMakeFiles/DBMS.dir/engine.cpp.o"
-=======
->>>>>>> master
   "DBMS.pdb"
   "DBMS"
 )
