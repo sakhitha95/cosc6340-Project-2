@@ -6,6 +6,7 @@
 
 #IncludeRegexTransform: 
 
+<<<<<<< HEAD
 /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/Parser.h
 string
 -
@@ -127,4 +128,11 @@ iomanip
 -
 tuple
 -
+=======
+/Users/devincrane/CLionProjects/DBMS/dbms.cpp
+iostream
+-
+stdio.h
+-
+>>>>>>> master
 

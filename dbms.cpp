@@ -7,6 +7,7 @@ using namespace std;
 string sqlQuery = "CREATE TABLE T (C1 INT, C2 VARCHAR(5), C3 INT, PRIMARY KEY(C1));";
 //string sqlQuery = "INSERT INTO T VALUES(1,'string',5);";
 //string sqlQuery="SHOW TABLE T;";
+
 string scriptFile = "";
 //string scriptFile = "file";
 
@@ -46,10 +47,10 @@ void parseSQLQuery(string SQL) {
 }
 
 string toUpper(string str) {
-    for (int i = 0; i < str.length(); i++) {
-        str[i] = toupper(str[i]);
-    }
-    return str;
+	for (int i = 0; i < str.length(); i++) {
+		str[i] = toupper(str[i]);
+	}
+	return str;
 }
 
 void parseScriptFile(string scriptFile) {
@@ -59,24 +60,25 @@ void parseScriptFile(string scriptFile) {
     //script.open
     string line = "";
     if (script.is_open()) {
-        while (getline(script, line)) {
-            cout << line << endl;
-            line = toUpper(line);
-            if (parser->parse(line) == 0) {
-                return;
-            }
-        }
-
-        cout << "Finished reading sql script" << endl;
+		while (getline(script, line)) {
+			cout << line << endl;
+	    	line = toUpper(line);
+			if (parser->parse(line) == 0) {
+		    	return;
+		    }
+		}
+		
+		cout << "Finished reading sql script" << endl;
     } else {
-        cout << "ERROR: could not open " << scriptFile << ". Was it named correctly?" << endl;
+    	cout << "ERROR: could not open " << scriptFile << ". Was it named correctly?" << endl;
     }
 }
 
 void commandLineSQLInput(string sqlQuery) {
     //cout << sqlQuery << endl;
     while (true) {
-        sqlQuery = toUpper(sqlQuery);
+    	sqlQuery = toUpper(sqlQuery);
+        
         // for production - don't -think- this is needed anymore
 //        SQL = "";
 //        cout << "SQL > ";
@@ -84,7 +86,7 @@ void commandLineSQLInput(string sqlQuery) {
 //        SQL = toupper(SQL);
 
         if (parser->parse(sqlQuery) == 0) {
-            return;
+        	return;
         }
 
         // for testing
@@ -95,7 +97,6 @@ void commandLineSQLInput(string sqlQuery) {
 }
 
 int main(int argc, char *argv[]) {
-
     if (argc != 2) {
         cout << "usage: dbms script=<filename> OR dbms \"<SQL query>\"" << endl;
         if (!sqlQuery.empty()) {
@@ -107,9 +108,9 @@ int main(int argc, char *argv[]) {
         }
         return 0;
     }
-
+    
     parser = new Parser();
-
+    
     string firstArg = argv[1];
     //cout << firstArg << endl;
     if (firstArg.find("script") != string::npos) {
@@ -119,12 +120,12 @@ int main(int argc, char *argv[]) {
             cout << "ERROR: no sql script could be found" << endl;
             return 0;
         }
-
+        
         //cout << scriptFile << endl;
         parseScriptFile(scriptFile);
     } else {
         commandLineSQLInput(firstArg);
     }
-
+    
     return 0;
 }
