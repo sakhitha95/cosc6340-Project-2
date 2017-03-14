@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named git2
+# Target rules for targets named DBMS
 
 # Build rule for target.
-git2: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 git2
-.PHONY : git2
+DBMS: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 DBMS
+.PHONY : DBMS
 
 # fast build rule for target.
-git2/fast:
-	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/build
-.PHONY : git2/fast
+DBMS/fast:
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/build
+.PHONY : DBMS/fast
 
 dbms.o: dbms.cpp.o
 
@@ -129,7 +129,7 @@ dbms.o: dbms.cpp.o
 
 # target to build an object file
 dbms.cpp.o:
-	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/dbms.cpp.o
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/dbms.cpp.o
 .PHONY : dbms.cpp.o
 
 dbms.i: dbms.cpp.i
@@ -138,7 +138,7 @@ dbms.i: dbms.cpp.i
 
 # target to preprocess a source file
 dbms.cpp.i:
-	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/dbms.cpp.i
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/dbms.cpp.i
 .PHONY : dbms.cpp.i
 
 dbms.s: dbms.cpp.s
@@ -147,7 +147,7 @@ dbms.s: dbms.cpp.s
 
 # target to generate assembly for a file
 dbms.cpp.s:
-	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/dbms.cpp.s
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/dbms.cpp.s
 .PHONY : dbms.cpp.s
 
 engine.o: engine.cpp.o
@@ -156,7 +156,7 @@ engine.o: engine.cpp.o
 
 # target to build an object file
 engine.cpp.o:
-	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/engine.cpp.o
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/engine.cpp.o
 .PHONY : engine.cpp.o
 
 engine.i: engine.cpp.i
@@ -165,7 +165,7 @@ engine.i: engine.cpp.i
 
 # target to preprocess a source file
 engine.cpp.i:
-	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/engine.cpp.i
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/engine.cpp.i
 .PHONY : engine.cpp.i
 
 engine.s: engine.cpp.s
@@ -174,7 +174,7 @@ engine.s: engine.cpp.s
 
 # target to generate assembly for a file
 engine.cpp.s:
-	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/engine.cpp.s
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/engine.cpp.s
 .PHONY : engine.cpp.s
 
 parser.o: parser.cpp.o
@@ -183,7 +183,7 @@ parser.o: parser.cpp.o
 
 # target to build an object file
 parser.cpp.o:
-	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/parser.cpp.o
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/parser.cpp.o
 .PHONY : parser.cpp.o
 
 parser.i: parser.cpp.i
@@ -192,7 +192,7 @@ parser.i: parser.cpp.i
 
 # target to preprocess a source file
 parser.cpp.i:
-	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/parser.cpp.i
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/parser.cpp.i
 .PHONY : parser.cpp.i
 
 parser.s: parser.cpp.s
@@ -201,7 +201,7 @@ parser.s: parser.cpp.s
 
 # target to generate assembly for a file
 parser.cpp.s:
-	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/parser.cpp.s
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/parser.cpp.s
 .PHONY : parser.cpp.s
 
 table.o: table.cpp.o
@@ -210,7 +210,7 @@ table.o: table.cpp.o
 
 # target to build an object file
 table.cpp.o:
-	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/table.cpp.o
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/table.cpp.o
 .PHONY : table.cpp.o
 
 table.i: table.cpp.i
@@ -219,7 +219,7 @@ table.i: table.cpp.i
 
 # target to preprocess a source file
 table.cpp.i:
-	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/table.cpp.i
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/table.cpp.i
 .PHONY : table.cpp.i
 
 table.s: table.cpp.s
@@ -228,7 +228,7 @@ table.s: table.cpp.s
 
 # target to generate assembly for a file
 table.cpp.s:
-	$(MAKE) -f CMakeFiles/git2.dir/build.make CMakeFiles/git2.dir/table.cpp.s
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/table.cpp.s
 .PHONY : table.cpp.s
 
 # Help Target
@@ -239,7 +239,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... git2"
+	@echo "... DBMS"
 	@echo "... dbms.o"
 	@echo "... dbms.i"
 	@echo "... dbms.s"

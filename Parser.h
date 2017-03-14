@@ -39,22 +39,22 @@ private:
 
 public:
     //Tree data structure
-    struct treeNode
-    {
-        string data;
-        treeNode *leftChild;
-        treeNode *rightChild;
-    };
+//    struct treeNode
+//    {
+//        string data;
+//        treeNode *leftChild;
+//        treeNode *rightChild;
+//    };
 
     //Tree functions
-    void traversal(treeNode *start); //In Order Traversal
+//    void traversal(treeNode *start); //In Order Traversal
     //Declare class methods
     Parser() {};
 
     bool readFromFile(string sFileName);
     bool writeToFile(string sFileName);
     int parse(string sLineIn);
-    void validate();
+//    void validate();
 
     //Grammar functions
     bool findCreateTable(string sLineIn);
@@ -76,10 +76,10 @@ public:
     string removeSpaces(string sLineIn);
     bool checkParenthesis(string sLineIn);
 //  vector<string> makeTokens(string sLineIn); //tokenizes some shit
-    treeNode * createTree(string sLineIn);
-    void projection(string sRestOfLine, string sTableNameOut);
-    void rename(string sRestOfLine, string sTableNameOut);
-    void op(string sNewTableName, string sRestOfLine);
+    //treeNode * createTree(string sLineIn);
+//    void projection(string sRestOfLine, string sTableNameOut);
+//    void rename(string sRestOfLine, string sTableNameOut);
+//    void op(string sNewTableName, string sRestOfLine);
     void select(string sNewTableName, string sRestOfLine);
 //  void evalCondition(vector<string> vTokens, string relationName);
 //  void removeBlankTokens(vector<string> & vTokens);
