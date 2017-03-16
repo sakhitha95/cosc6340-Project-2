@@ -45,8 +45,20 @@ void parseSQLQuery(string SQL) {
 }
 
 string toUpper(string str) {
+	bool toUpper = true;
 	for (int i = 0; i < str.length(); i++) {
-		str[i] = toupper(str[i]);
+		if (str[i] == '\'') {
+			toUpper = false;
+		} else {
+			if (toUpper) {
+				str[i] = toupper(str[i]);
+			} else {
+				str[i] = str[i];
+				if (str[i] == '\'') {
+					toUpper = true;
+				}
+			}
+		}
 	}
 	return str;
 }
@@ -63,9 +75,11 @@ void parseScriptFile(string scriptFile) {
 		while (getline(script, line)) {
 			queries += toUpper(line);
 			cout << queries << endl;
-			size_t firstSemicolon = line.find(";");
+			size_t firstSemicolon = queries.find(";") + 1;
 			if (firstSemicolon != string::npos) {
-				parser->parse(queries);
+			    string query = queries.substr(0, firstSemicolon);
+				parser->parse(query);
+				queries = queries.substr(firstSemicolon, queries.length() - firstSemicolon);
 			}
 		}
 		

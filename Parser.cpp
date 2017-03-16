@@ -394,17 +394,17 @@ bool Parser::findInsertInto(string sLineIn)
             cout << sTableNameOut << endl;
 
             //reposition the iterators to get the row values
-            iPosStart = sLineIn.find("("); + 1;
+            iPosStart = sLineIn.find("(") + 1;
             iPosEnd1 = sLineIn.find(")");
 
             if (iPosStart != std::string::npos && iPosEnd1 != std::string::npos)
             {
                 //Get the row attributes from the string
-                string values = sLineIn.substr(iPosStart,
+                string sRow = sLineIn.substr(iPosStart,
                                                      iPosEnd1 - iPosStart);
-                cout << "values " << values << endl;
-                values = cleanSpaces(values);
-                cout << "values " << values << endl;
+                cout << "values " << sRow << endl;
+                //values = cleanSpaces(values);
+                //cout << "values " << values << endl;
 
                 iPosStart = iPosEnd1;
 
@@ -428,7 +428,7 @@ bool Parser::findInsertInto(string sLineIn)
             iPosEnd1 = sLineIn.find("FROM", iPosStart);
             string colNames = sLineIn.substr(iPosStart,
                                                iPosEnd1 - iPosStart);
-            colNames = cleanSpaces(colNames);
+            //colNames = cleanSpaces(colNames);
             cout << "from colNames " << colNames << endl;
 
             //reposition the iterators to get the row values
