@@ -93,8 +93,6 @@ iostream
 -
 iomanip
 -
-engine.h
-/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/engine.h
 
 /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/table.cpp
 string
@@ -126,10 +124,5 @@ iostream
 iomanip
 -
 tuple
--
-/Users/devincrane/CLionProjects/DBMS/dbms.cpp
-iostream
--
-stdio.h
 -
 
