@@ -150,6 +150,87 @@ dbms.cpp.s:
 	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/dbms.cpp.s
 .PHONY : dbms.cpp.s
 
+engine.o: engine.cpp.o
+
+.PHONY : engine.o
+
+# target to build an object file
+engine.cpp.o:
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/engine.cpp.o
+.PHONY : engine.cpp.o
+
+engine.i: engine.cpp.i
+
+.PHONY : engine.i
+
+# target to preprocess a source file
+engine.cpp.i:
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/engine.cpp.i
+.PHONY : engine.cpp.i
+
+engine.s: engine.cpp.s
+
+.PHONY : engine.s
+
+# target to generate assembly for a file
+engine.cpp.s:
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/engine.cpp.s
+.PHONY : engine.cpp.s
+
+parser.o: parser.cpp.o
+
+.PHONY : parser.o
+
+# target to build an object file
+parser.cpp.o:
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/parser.cpp.o
+.PHONY : parser.cpp.o
+
+parser.i: parser.cpp.i
+
+.PHONY : parser.i
+
+# target to preprocess a source file
+parser.cpp.i:
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/parser.cpp.i
+.PHONY : parser.cpp.i
+
+parser.s: parser.cpp.s
+
+.PHONY : parser.s
+
+# target to generate assembly for a file
+parser.cpp.s:
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/parser.cpp.s
+.PHONY : parser.cpp.s
+
+table.o: table.cpp.o
+
+.PHONY : table.o
+
+# target to build an object file
+table.cpp.o:
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/table.cpp.o
+.PHONY : table.cpp.o
+
+table.i: table.cpp.i
+
+.PHONY : table.i
+
+# target to preprocess a source file
+table.cpp.i:
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/table.cpp.i
+.PHONY : table.cpp.i
+
+table.s: table.cpp.s
+
+.PHONY : table.s
+
+# target to generate assembly for a file
+table.cpp.s:
+	$(MAKE) -f CMakeFiles/DBMS.dir/build.make CMakeFiles/DBMS.dir/table.cpp.s
+.PHONY : table.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,6 +243,15 @@ help:
 	@echo "... dbms.o"
 	@echo "... dbms.i"
 	@echo "... dbms.s"
+	@echo "... engine.o"
+	@echo "... engine.i"
+	@echo "... engine.s"
+	@echo "... parser.o"
+	@echo "... parser.i"
+	@echo "... parser.s"
+	@echo "... table.o"
+	@echo "... table.i"
+	@echo "... table.s"
 .PHONY : help
 
 

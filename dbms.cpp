@@ -4,8 +4,8 @@
 using namespace std;
 
 //string sqlQuery = "";
-//string sqlQuery = "CREATE TABLE T (C1 INT, C2 VARCHAR(5), C3 INT, PRIMARY KEY(C1));";
-string sqlQuery = "INSERT INTO T VALUES(1,'string',5);";
+string sqlQuery = "CREATE TABLE T (C1 INT, C2 VARCHAR(5), C3 INT, PRIMARY KEY(C1));";
+//string sqlQuery = "INSERT INTO T VALUES(1,'string',5);";
 string scriptFile = "";
 //string scriptFile = "file";
 
@@ -45,66 +45,66 @@ void parseSQLQuery(string SQL) {
 }
 
 string toUpper(string str) {
-	bool toUpper = true;
-	for (int i = 0; i < str.length(); i++) {
-		if (str[i] == '\'') {
-			toUpper = false;
-		} else {
-			if (toUpper) {
-				str[i] = toupper(str[i]);
-			} else {
-				str[i] = str[i];
-				if (str[i] == '\'') {
-					toUpper = true;
-				}
-			}
-		}
-	}
-	return str;
+    bool toUpper = true;
+    for (int i = 0; i < str.length(); i++) {
+        if (str[i] == '\'') {
+            toUpper = false;
+        } else {
+            if (toUpper) {
+                str[i] = toupper(str[i]);
+            } else {
+                str[i] = str[i];
+                if (str[i] == '\'') {
+                    toUpper = true;
+                }
+            }
+        }
+    }
+    return str;
 }
 
 void parseScriptFile(string scriptFile) {
     cout << scriptFile << endl;
-    
+
     ifstream script(scriptFile);
     //script.open
     string line = "";
     string queries = "";
     if (script.is_open()) {
-    	//cout << "open" << endl;
-		while (getline(script, line)) {
-			queries += toUpper(line);
-			cout << queries << endl;
-			size_t firstSemicolon = queries.find(";") + 1;
-			if (firstSemicolon != string::npos) {
-			    string query = queries.substr(0, firstSemicolon);
-				parser->parse(query);
-				queries = queries.substr(firstSemicolon, queries.length() - firstSemicolon);
-			}
-		}
-		
-		/*while (true) {
-			size_t firstSemicolon = queries.find_first_of(";");
-			if (firstSemicolon == string::npos || queries.length() == 0) {
-		    	cout << "End of queries that end in a semicolon" << endl;
-		    	break;
-		    } else {
-			    string query = queries.substr(0, firstSemicolon);
-				parser->parse(query);
-				queries = queries.substr(firstSemicolon, queries.length() - firstSemicolon);
-			}
-		}*/
-		
-		cout << "Finished reading sql script" << endl;
+        //cout << "open" << endl;
+        while (getline(script, line)) {
+            queries += toUpper(line);
+            cout << queries << endl;
+            size_t firstSemicolon = queries.find(";") + 1;
+            if (firstSemicolon != string::npos) {
+                string query = queries.substr(0, firstSemicolon);
+                parser->parse(query);
+                queries = queries.substr(firstSemicolon, queries.length() - firstSemicolon);
+            }
+        }
+
+        /*while (true) {
+            size_t firstSemicolon = queries.find_first_of(";");
+            if (firstSemicolon == string::npos || queries.length() == 0) {
+                cout << "End of queries that end in a semicolon" << endl;
+                break;
+            } else {
+                string query = queries.substr(0, firstSemicolon);
+                parser->parse(query);
+                queries = queries.substr(firstSemicolon, queries.length() - firstSemicolon);
+            }
+        }*/
+
+        cout << "Finished reading sql script" << endl;
     } else {
-    	cout << "ERROR: could not open " << scriptFile << ". Was it named correctly?" << endl;
+        cout << "ERROR: could not open " << scriptFile << ". Was it named correctly?" << endl;
     }
 }
 
 void commandLineSQLInput(string sqlQuery) {
     //cout << sqlQuery << endl;
     while (true) {
-    	sqlQuery = toUpper(sqlQuery);
+        sqlQuery = toUpper(sqlQuery);
         // for production - don't -think- this is needed anymore
 //        SQL = "";
 //        cout << "SQL > ";
@@ -112,7 +112,7 @@ void commandLineSQLInput(string sqlQuery) {
 //        SQL = toupper(SQL);
 
         if (parser->parse(sqlQuery) == 0) {
-        	return;
+            return;
         }
 
         // for testing
@@ -138,17 +138,17 @@ int main(int argc, char *argv[]) {
     parser = new Parser();
 
     string firstArg = argv[1];
-	//cout << firstArg << endl;
+    //cout << firstArg << endl;
     if (firstArg.find("script") != string::npos) {
         char* scriptFile = strtok((char*)firstArg.c_str(), "=");
         scriptFile = strtok(NULL, "="); // Advance to actual script file name
-		if (scriptFile == NULL) {
-			cout << "ERROR: no sql script could be found" << endl;
-			return 0;
-		}
-		
-		//cout << scriptFile << endl;
-	    parseScriptFile(scriptFile);
+        if (scriptFile == NULL) {
+            cout << "ERROR: no sql script could be found" << endl;
+            return 0;
+        }
+
+        //cout << scriptFile << endl;
+        parseScriptFile(scriptFile);
     } else {
         commandLineSQLInput(firstArg);
     }

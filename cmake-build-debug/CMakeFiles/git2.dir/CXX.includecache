@@ -6,13 +6,20 @@
 
 #IncludeRegexTransform: 
 
-<<<<<<< HEAD
-/Users/devincrane/CLionProjects/DBMS/dbms.cpp
+/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/Engine.h
+string
+-
+vector
+-
+cstdlib
+-
 iostream
 -
-stdio.h
+iomanip
 -
-=======
+Table.h
+/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/Table.h
+
 /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/Parser.h
 string
 -
@@ -56,6 +63,8 @@ Parser.h
 /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/Parser.h
 
 /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/engine.cpp
+engine.h
+/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/engine.h
 string
 -
 vector
@@ -66,8 +75,8 @@ iostream
 -
 iomanip
 -
-engine.h
-/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/engine.h
+Engine.h
+/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/Engine.h
 
 /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/engine.h
 string
@@ -80,8 +89,8 @@ iostream
 -
 iomanip
 -
-table.h
-/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/table.h
+Table.h
+/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/Table.h
 
 /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/parser.cpp
 Parser.h
@@ -118,19 +127,4 @@ fstream
 -
 Table.h
 /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/Table.h
-
-/Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/table.h
-string
--
-vector
--
-cstdlib
--
-iostream
--
-iomanip
--
-tuple
--
->>>>>>> adding-engine
 

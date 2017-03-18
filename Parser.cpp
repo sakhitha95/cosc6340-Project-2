@@ -47,7 +47,7 @@ static int nestedLevel = 0;
 static int returningNestedLevel = 1;
 static string origQuery = "";
 
-stack <Table> stack;
+//stack <Table> stack;
 
 //Array of String identifiers for non-symbolic operations
 static const string expr[] =
@@ -178,26 +178,29 @@ int Parser::parse(string sLineIn)
   //Declare and initialize variables
   //string sTemp;
 
-  //Output the line we are working with so we know we have the parsing correct
-  //printf("\n%s\n", sLineIn.c_str());
-	cout << sLineIn << endl;
-	origQuery = sLineIn;
-  if (checkParenthesis(sLineIn))
-  {
-  	cout << "parenthesis ok" << endl;
-    if (findCreateTable(sLineIn)) {
-        printf("| CREATE TABLE was found in this line, executed.\n");
-    } else if (findInsertInto(sLineIn)) {
-   	  	cout << "Insert Into found" << endl;
-   	} else if (findSelect(sLineIn)) {
-     	cout << "Select found" << endl;
-	} else if (findQuit(sLineIn)) {
-        cout << "Finished;" << endl;
-        return 0;
-    } else if (findShowTable(sLineIn)) { // needs to go before findShowTable
-        cout << "Show table" << endl;
-    } else if (findShowTables(sLineIn)) {
-    	cout << "Show tables" << endl;
+    //Output the line we are working with so we know we have the parsing correct
+    //printf("\n%s\n", sLineIn.c_str());
+    cout << sLineIn << endl;
+    origQuery = sLineIn;
+    if (checkParenthesis(sLineIn))
+    {
+        cout << "parenthesis ok" << endl;
+        if (findCreateTable(sLineIn)) {
+            printf("| CREATE TABLE was found in this line, executed.\n");
+        } else if (findInsertInto(sLineIn)) {
+            cout << "Insert Into found" << endl;
+        } else if (findSelect(sLineIn)) {
+            cout << "Select found" << endl;
+        } else if (findQuit(sLineIn)) {
+            cout << "Finished;" << endl;
+            return 0;
+        } else if (findShowTable(sLineIn)) { // needs to go before findShowTable
+            cout << "Show table" << endl;
+        } else if (findShowTables(sLineIn)) {
+            cout << "Show tables" << endl;
+        } else {
+            printf("| None of the lines executed\n");
+        }
     } else {
       	printf("| None of the lines executed\n");
     }
@@ -266,8 +269,8 @@ bool Parser::findCreateTable(string sLineIn)
                     sTableName = cleanSpaces(sTableName);
 
                     //call the create table function after the helper functions
-//          e.createTable(sTableName, createColVector(sColumns),
-//              createVector(sPrimaryKeys));
+                    e.createTable(sTableName, createColVector(sColumns),
+                       createVector(sPrimaryKeys));
 
                     return true;
                 }
@@ -280,89 +283,89 @@ bool Parser::findCreateTable(string sLineIn)
 
 bool Parser::findSelect(string sLineIn)
 {
-	size_t iPosStart = sLineIn.find("SELECT");
-	
-	if (iPosStart != std::string::npos)
-	{
-		cout << "Select found" << endl;
-		iPosStart += 6;
-		size_t iPosEnd1 = sLineIn.find("FROM", iPosStart);
-		
-		if (iPosEnd1 != std::string::npos)
-		{
-			cout << "From found" << endl;
-			string colNames = sLineIn.substr(iPosStart,
-											iPosEnd1 - iPosStart);
-			cout << "colNames " << colNames << endl;
-			
-			iPosStart = iPosEnd1 + 4;
-			
-			size_t nestedSelectPos = sLineIn.find("(", iPosStart);
-			if (nestedSelectPos != std::string::npos) {
-				nestedLevel++;
-				cout << "detected nested query" << endl;
-				if (nestedLevel > 3) {
-					cout << "Too many nested SELECT statements" << endl;
-					return false;
-				}
-				iPosStart += sLineIn.find("FROM") + 4;
-				string nestedSelect = sLineIn.substr(nestedSelectPos+1);
-				
-				// recursion starts
-				this->findSelect(nestedSelect);
-				cout << "returned from recursion" << endl;
-				// ok, now start using origQuery
-				
-				// find temporary table name
-				iPosStart = origQuery.find(")", returningNestedLevel) + 1;
-				iPosEnd1 = origQuery.find(")", iPosStart);
-				
-				if (iPosEnd1 == std::string::npos) {
-					iPosEnd1 = origQuery.find(";", iPosStart);
-				} else {
-					cout << "ERROR: semicolon required" << endl;
-					//return false;
-				}
-				
-				if (iPosEnd1 != std::string::npos)
-				{
-					string tableName = origQuery.substr(iPosStart,
-													iPosEnd1 - iPosStart);
-					tableName = cleanSpaces(tableName);
-					returningNestedLevel = iPosEnd1 - 1;
-					cout << "tableName " << tableName << endl;
-					cout << "colNames " << colNames << endl;
-					return true;
-				}
-			} else {
-				if (nestedLevel == 0) {
-					iPosEnd1 = sLineIn.find(";", iPosStart);
-					if (iPosEnd1 != std::string::npos)
-					{
-						cout << "found semicolon" << endl;
-					} else {
-						cout << "ERROR: semicolon required" << endl;
-						return false;
-					}
-				} else {
-					iPosEnd1 = sLineIn.find(")", iPosStart);
-					returningNestedLevel = iPosEnd1 - 1;
-					if (iPosEnd1 != std::string::npos)
-					{
-						//cout << sLineIn << endl;
-						string tableName = sLineIn.substr(iPosStart,
-														iPosEnd1 - iPosStart);
-						cout << "tableName " << tableName << endl;
-						return true;
-					}
-				}
-			}
-		}
-	} else if (nestedLevel > 0) {
-		return false;
-	}
-	
-	return false;
+    size_t iPosStart = sLineIn.find("SELECT");
+
+    if (iPosStart != std::string::npos)
+    {
+        cout << "Select found" << endl;
+        iPosStart += 6;
+        size_t iPosEnd1 = sLineIn.find("FROM", iPosStart);
+
+        if (iPosEnd1 != std::string::npos)
+        {
+            cout << "From found" << endl;
+            string colNames = sLineIn.substr(iPosStart,
+                                             iPosEnd1 - iPosStart);
+            cout << "colNames " << colNames << endl;
+
+            iPosStart = iPosEnd1 + 4;
+
+            size_t nestedSelectPos = sLineIn.find("(", iPosStart);
+            if (nestedSelectPos != std::string::npos) {
+                nestedLevel++;
+                cout << "detected nested query" << endl;
+                if (nestedLevel > 3) {
+                    cout << "Too many nested SELECT statements" << endl;
+                    return false;
+                }
+                iPosStart += sLineIn.find("FROM") + 4;
+                string nestedSelect = sLineIn.substr(nestedSelectPos+1);
+
+                // recursion starts
+                this->findSelect(nestedSelect);
+                cout << "returned from recursion" << endl;
+                // ok, now start using origQuery
+
+                // find temporary table name
+                iPosStart = origQuery.find(")", returningNestedLevel) + 1;
+                iPosEnd1 = origQuery.find(")", iPosStart);
+
+                if (iPosEnd1 == std::string::npos) {
+                    iPosEnd1 = origQuery.find(";", iPosStart);
+                } else {
+                    cout << "ERROR: semicolon required" << endl;
+                    //return false;
+                }
+
+                if (iPosEnd1 != std::string::npos)
+                {
+                    string tableName = origQuery.substr(iPosStart,
+                                                        iPosEnd1 - iPosStart);
+                    tableName = cleanSpaces(tableName);
+                    returningNestedLevel = iPosEnd1 - 1;
+                    cout << "tableName " << tableName << endl;
+                    cout << "colNames " << colNames << endl;
+                    return true;
+                }
+            } else {
+                if (nestedLevel == 0) {
+                    iPosEnd1 = sLineIn.find(";", iPosStart);
+                    if (iPosEnd1 != std::string::npos)
+                    {
+                        cout << "found semicolon" << endl;
+                    } else {
+                        cout << "ERROR: semicolon required" << endl;
+                        return false;
+                    }
+                } else {
+                    iPosEnd1 = sLineIn.find(")", iPosStart);
+                    returningNestedLevel = iPosEnd1 - 1;
+                    if (iPosEnd1 != std::string::npos)
+                    {
+                        //cout << sLineIn << endl;
+                        string tableName = sLineIn.substr(iPosStart,
+                                                          iPosEnd1 - iPosStart);
+                        cout << "tableName " << tableName << endl;
+                        return true;
+                    }
+                }
+            }
+        }
+    } else if (nestedLevel > 0) {
+        return false;
+    }
+
+    return false;
 }
 
 /*******************************************************************************
@@ -401,7 +404,7 @@ bool Parser::findInsertInto(string sLineIn)
             {
                 //Get the row attributes from the string
                 string sRow = sLineIn.substr(iPosStart,
-                                                     iPosEnd1 - iPosStart);
+                                             iPosEnd1 - iPosStart);
                 cout << "values " << sRow << endl;
                 //values = cleanSpaces(values);
                 //cout << "values " << values << endl;
@@ -415,7 +418,7 @@ bool Parser::findInsertInto(string sLineIn)
                 //WE NEED THE TREE HERE!!!!!!!!!
 
                 //Clean up and add the row to the table
-                //e.addRow(sTableNameOut, createRowVector(sRow));
+                e.addRow(sTableNameOut, createRowVector(sRow));
 
                 return true;
             }
@@ -427,7 +430,7 @@ bool Parser::findInsertInto(string sLineIn)
             iPosStart = iPosEnd1 + 6;
             iPosEnd1 = sLineIn.find("FROM", iPosStart);
             string colNames = sLineIn.substr(iPosStart,
-                                               iPosEnd1 - iPosStart);
+                                             iPosEnd1 - iPosStart);
             //colNames = cleanSpaces(colNames);
             cout << "from colNames " << colNames << endl;
 
@@ -481,8 +484,10 @@ bool Parser::findShowTable(string sLineIn)
     
     cout << "table name " << sTableName << endl;
 
-    //call the function to display table
-//    e.displayTable(sTableName);
+        cout << "table name " << sTableName << endl;
+
+       // call the function to display table
+            e.displayTable(sTableName);
 
     return true;
   }
@@ -614,5 +619,98 @@ void Parser::select(string sNewTableName, string sRestOfLine)
 
     }
   }
+}
+/*******************************************************************************
+ Takes in a string, parses it, and creates a vector of strings to send back
+ *******************************************************************************/
+vector<string> Parser::createVector(string sLineIn)
+{
+    vector < string > vReturn;
+    int iPosStart = 0;
+    int iPosEnd = 0;
+    int iCount = 0;
+    int iAmountOfCommas = 0;
+
+    //Check to see how many commas are in the string
+    for (int i = 0; i < sLineIn.length(); ++i)
+    {
+        //Execute if the comma is found and increment the counter
+        if (sLineIn[i] == ',')
+        {
+            iAmountOfCommas++;
+        }
+    }
+
+    //Loop to parser out the comma seperated values
+    while (iCount <= iAmountOfCommas)
+    {
+        iPosEnd = sLineIn.find(",", iPosStart + 1);
+        vReturn.push_back(sLineIn.substr(iPosStart, iPosEnd - iPosStart));
+        iPosStart = iPosEnd + 1;
+        iCount++;
+    }
+
+    //clean up the words that were seperated out
+    for (int i = 0; i < vReturn.size(); ++i)
+    {
+        vReturn[i] = cleanSpaces(vReturn[i]);
+        std::cout<<"vReturn: "<<vReturn[i]<<endl;
+    }
+
+    return vReturn;
+}
+
+/*******************************************************************************
+ Takes in a string, parses it, and creates a vector of strings to send back
+ *******************************************************************************/
+vector<tuple<int, string> > Parser::createRowVector(string sLineIn)
+{
+    vector < tuple<int, string> > vRowOut;
+    vector < string > vRowAttributes = createVector(sLineIn);
+
+    for (int i = 0; i < vRowAttributes.size(); i++)
+    {
+        int iColIndex = i;
+        string sName = vRowAttributes[i];
+
+        vRowOut.push_back(make_tuple(iColIndex, sName));
+    }
+    return vRowOut;
+}
+/*******************************************************************************
+ Takes in a string, parses it, and creates a vector of columns to send back
+ *******************************************************************************/
+vector<tuple<string, string, bool> > Parser::createColVector(string sLineIn)
+{
+    //<type, name, primarykey>
+    vector < tuple<string, string, bool> > vColVectorOut;
+    vector < string > vCol = createVector(sLineIn);
+
+    for (int i = 0; i < vCol.size(); i++)
+    {
+        string sType, sName;
+
+        //See what type of column it is and create a tuple with the name & type
+        size_t iVar = vCol[i].find("VARCHAR");
+
+        if (iVar != std::string::npos)
+        {
+            sType = "string";
+            sName = vCol[i].substr(0, iVar);
+        }
+
+        size_t iInt = vCol[i].find("INT");
+
+        if (iInt != std::string::npos)
+        {
+            sType = "int";
+            sName = vCol[i].substr(0, iInt);
+        }
+
+        //push the newly created column into the vector to send back
+        vColVectorOut.push_back(make_tuple(sName, sType, false));
+
+    }
+    return vColVectorOut;
 }
 
