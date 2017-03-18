@@ -22,7 +22,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
-#include "table.h"
+#include "Table.h"
 using namespace std;
 
 class Engine {
@@ -50,3 +50,4 @@ public:
 
 
 #endif
+
