@@ -199,13 +199,10 @@ int Parser::parse(string sLineIn)
         } else if (findShowTables(sLineIn)) {
             cout << "Show tables" << endl;
         } else {
-            printf("| None of the lines executed\n");
+            printf("ERROR: none of the lines executed\n");
         }
-    } else {
-      	printf("| None of the lines executed\n");
-    }
   } else {
-  	printf("| The line is incorrect\n");
+  	printf("ERROR: the line is incorrect\n");
   }
 
 	return 1;
