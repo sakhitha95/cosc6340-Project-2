@@ -48,11 +48,6 @@ CMAKE_SOURCE_DIR = /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/cmake-build-debug
 
-CMAKE_SOURCE_DIR = /Users/devincrane/CLionProjects/DBMS
-
-# The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/devincrane/CLionProjects/DBMS/cmake-build-debug
-
 # Include any dependencies generated for this target.
 include CMakeFiles/DBMS.dir/depend.make
 
@@ -74,16 +69,6 @@ CMakeFiles/DBMS.dir/dbms.cpp.i: cmake_force
 CMakeFiles/DBMS.dir/dbms.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DBMS.dir/dbms.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/amirreza/CLionProjects/project2/project2-desktop/cosc6340-Project-2/dbms.cpp -o CMakeFiles/DBMS.dir/dbms.cpp.s
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/devincrane/CLionProjects/DBMS/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/DBMS.dir/dbms.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/DBMS.dir/dbms.cpp.o -c /Users/devincrane/CLionProjects/DBMS/dbms.cpp
-
-CMakeFiles/DBMS.dir/dbms.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DBMS.dir/dbms.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/devincrane/CLionProjects/DBMS/dbms.cpp > CMakeFiles/DBMS.dir/dbms.cpp.i
-
-CMakeFiles/DBMS.dir/dbms.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DBMS.dir/dbms.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/devincrane/CLionProjects/DBMS/dbms.cpp -o CMakeFiles/DBMS.dir/dbms.cpp.s
 
 CMakeFiles/DBMS.dir/dbms.cpp.o.requires:
 
@@ -174,13 +159,6 @@ DBMS_OBJECTS = \
 "CMakeFiles/DBMS.dir/parser.cpp.o" \
 "CMakeFiles/DBMS.dir/table.cpp.o" \
 "CMakeFiles/DBMS.dir/engine.cpp.o"
-# Object files for target DBMS
-DBMS_OBJECTS = \
-"CMakeFiles/DBMS.dir/dbms.cpp.o"
-# Object files for target DBMS
-DBMS_OBJECTS = \
-"CMakeFiles/DBMS.dir/dbms.cpp.o"
->>>>>>> master
 
 # External object files for target DBMS
 DBMS_EXTERNAL_OBJECTS =
