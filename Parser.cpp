@@ -19,15 +19,6 @@
  *******************************************************************************/
 
 #include "Parser.h"
-#include <string>
-#include <vector>
-#include <cstdlib>
-#include <stdio.h>
-#include <fstream>
-#include <iostream>
-#include <iomanip>
-//#include "../../Downloads/DBMS-master/Engine.h"
-using namespace std;
 
 const int CREATE_TABLE_SIZE = 12;
 const int INSERT_INTO_SIZE = 11;
@@ -266,8 +257,8 @@ bool Parser::findCreateTable(string sLineIn)
                     sTableName = cleanSpaces(sTableName);
 
                     //call the create table function after the helper functions
-                    e.createTable(sTableName, createColVector(sColumns),
-                       createVector(sPrimaryKeys));
+                    //e.createTable(sTableName, createColVector(sColumns),
+                      // createVector(sPrimaryKeys));
 
                     return true;
                 }
@@ -415,7 +406,8 @@ bool Parser::findInsertInto(string sLineIn)
                 //WE NEED THE TREE HERE!!!!!!!!!
 
                 //Clean up and add the row to the table
-                e.addRow(sTableNameOut, createRowVector(sRow));
+                vector<tuple<int, string> > rowVector = createRowVector(sRow);
+                //e.addRow(sTableNameOut, rowVector);
 
                 return true;
             }
@@ -484,7 +476,7 @@ bool Parser::findShowTable(string sLineIn)
         cout << "table name " << sTableName << endl;
 
        // call the function to display table
-            e.displayTable(sTableName);
+            //e.displayTable(sTableName);
 
     return true;
   }

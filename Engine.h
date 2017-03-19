@@ -23,29 +23,25 @@
 #include <iostream>
 #include <iomanip>
 #include "Table.h"
+
 using namespace std;
 
 class Engine {
-private:
-    //Declare private variables
-    //std::vector<Table> vTableList;
+	private:
+	    //Declare private variables
 
-public:
+	public:
 
-    //Declare class methods
-    Engine() {
+	    //Declare class methods
+	    Engine() {};
 
-    };
+	    void createTable(string sTableNameIn,
+	                     vector<tuple<string, string, bool> > vColumnNamesIn,
+	                     vector<string> vKeys);
+	    void displayTable(string sTableNameIn);
+	    void addRow(string sTableNameIn, vector<tuple<int, string> > vRowIn);
 
-    void createTable(std::string sTableNameIn,
-                     std::vector<std::tuple<std::string, std::string, bool> > vColumnNamesIn,
-                     std::vector<std::string> vKeys);
-    void displayTable(string sTableNameIn);
-    void addRow(string sTableNameIn, vector<tuple<int, string> > vRowIn);
-
-
-
-};
+	};
 
 
 

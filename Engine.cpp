@@ -14,23 +14,18 @@
  This file contains the implementation for the engine
  *******************************************************************************/
 
-#include <string>
-#include <vector>
-#include <cstdlib>
-#include <iostream>
-#include <iomanip>
-#include "engine.h"
-using namespace std;
+#include "Engine.h"
 
 /*******************************************************************************
  This function will take in a vector of column names and trailing primary keys,
  and an integer specifying how many columns are in the vector.
  *******************************************************************************/
 
-std::vector<Table> vTableList;
-void Engine::createTable(std::string sTableNameIn,
-                         std::vector<std::tuple<std::string, std::string, bool> > vColumnNamesIn,
-                         std::vector<std::string> vKeys)
+vector<Table> vTableList;
+
+void Engine::createTable(string sTableNameIn,
+                         vector<tuple<string, string, bool> > vColumnNamesIn,
+                         vector<string> vKeys)
 {
 
     Table t(sTableNameIn);
