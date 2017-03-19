@@ -1,19 +1,20 @@
 make: dbms
 
-dbms: dbms.o Parser.o
-	g++ -o dbms dbms.o Parser.o
+dbms: dbms.o Engine.o Parser.o Table.o
+	g++ -std=c++11 -o dbms dbms.o Engine.o Parser.o Table.o
 
-dbms.o: dbms.cpp Parser.h
+dbms.o: dbms.cpp Engine.h Parser.h Table.h
 	g++ -std=c++11 -c dbms.cpp
 
-Parser.o: Parser.cpp Parser.h Table.o Engine.o
-	g++ -std=c++11 -c Parser.cpp
-
-Table.o: Table.cpp Table.h
-	g++ -std=c++11 -c Table.cpp
-
-Engine.o: Engine.cpp Engine.h
+Engine.o: Engine.h
 	g++ -std=c++11 -c Engine.cpp
 
+Parser.o: Parser.h
+	g++ -std=c++11 -c Parser.cpp
+
+Table.o: Table.h
+	g++ -std=c++11 -c Table.cpp
+
 clean:
-	rm -rf *.o dbms
+	rm -rf *.o main
+
