@@ -76,6 +76,7 @@ public:
     string cleanSpaces(string sLineIn);
     string removeSpaces(string sLineIn);
     bool checkParenthesis(string sLineIn);
+    bool semicolonExists(string sLineIn);
 //  vector<string> makeTokens(string sLineIn); //tokenizes some shit
 //    treeNode * createTree(string sLineIn);
     void projection(string sRestOfLine, string sTableNameOut);

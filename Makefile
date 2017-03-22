@@ -1,4 +1,4 @@
-make: dbms
+make: clean dbms
 
 dbms: dbms.o Engine.o Parser.o Table.o
 	g++ -std=c++11 -o dbms dbms.o Engine.o Parser.o Table.o
@@ -10,7 +10,7 @@ Engine.o: Engine.h
 	g++ -std=c++11 -c Engine.cpp
 
 Parser.o: Parser.h
-	g++ -std=c++11 -c Parser.cpp
+	g++ -std=c++11 -o Parser.o -c Parser.cpp
 
 Table.o: Table.h
 	g++ -std=c++11 -c Table.cpp

@@ -173,30 +173,41 @@ int Parser::parse(string sLineIn)
     //printf("\n%s\n", sLineIn.c_str());
     cout << sLineIn << endl;
     origQuery = sLineIn;
-    if (checkParenthesis(sLineIn))
-    {
-        cout << "parenthesis ok" << endl;
-        if (findCreateTable(sLineIn)) {
-            printf("| CREATE TABLE was found in this line, executed.\n");
-        } else if (findInsertInto(sLineIn)) {
-            cout << "Insert Into found" << endl;
-        } else if (findSelect(sLineIn)) {
-            cout << "Select found" << endl;
-        } else if (findQuit(sLineIn)) {
-            cout << "Finished;" << endl;
-            return 0;
-        } else if (findShowTable(sLineIn)) { // needs to go before findShowTable
-            cout << "Show table" << endl;
-        } else if (findShowTables(sLineIn)) {
-            cout << "Show tables" << endl;
-        } else {
-            printf("ERROR: none of the lines executed\n");
-        }
-  } else {
-  	printf("ERROR: the line is incorrect\n");
-  }
+    if (!checkParenthesis(sLineIn)) {
+  		printf("ERROR: the parentheses do not match\n");
+  	}
+    if (!semicolonExists(sLineIn)) {
+  		printf("ERROR: there is no semicolon\n");
+  	}
+  	
+    cout << "parenthesis ok" << endl;
+    if (findCreateTable(sLineIn)) {
+        printf("CREATE TABLE was found in this line, executed.\n");
+    } else if (findInsertInto(sLineIn)) {
+        cout << "Insert Into found" << endl;
+    } else if (findSelect(sLineIn)) {
+        cout << "Select found" << endl;
+    } else if (findQuit(sLineIn)) {
+        cout << "Finished" << endl;
+        return 0;
+    } else if (findShowTable(sLineIn)) { // needs to go before findShowTable
+        cout << "Show table" << endl;
+    } else if (findShowTables(sLineIn)) {
+        cout << "Show tables" << endl;
+    } else {
+        printf("ERROR: no match for the query could be found\n");
+    }
 
 	return 1;
+}
+
+bool Parser::semicolonExists(string sLineIn) 
+{
+	size_t semicolon = sLineIn.find(";");
+	if (semicolon == string::npos) {
+		return false;
+	}
+	return true;
 }
 
 /*******************************************************************************
@@ -310,9 +321,6 @@ bool Parser::findSelect(string sLineIn)
 
                 if (iPosEnd1 == std::string::npos) {
                     iPosEnd1 = origQuery.find(";", iPosStart);
-                } else {
-                    cout << "ERROR: semicolon required" << endl;
-                    //return false;
                 }
 
                 if (iPosEnd1 != std::string::npos)
@@ -328,13 +336,29 @@ bool Parser::findSelect(string sLineIn)
             } else {
                 if (nestedLevel == 0) {
                     iPosEnd1 = sLineIn.find(";", iPosStart);
-                    if (iPosEnd1 != std::string::npos)
-                    {
-                        cout << "found semicolon" << endl;
-                    } else {
-                        cout << "ERROR: semicolon required" << endl;
-                        return false;
-                    }
+	                string endOfQuery = origQuery.substr(iPosStart,
+	                                                    iPosEnd1 - iPosStart);
+	                
+	                /*iPosJoin = tableName.find("JOIN", iPosStart);
+	             	if (iPosJoin != string::npos) {
+	             		iPosStart = iPosWhere + 4;
+	             	}//*/
+	             	
+	                size_t iPosWhere = origQuery.find("WHERE", iPosStart);
+	                cout << "after poswhere " << iPosWhere << endl;
+	             	if (iPosWhere != string::npos) {
+	             		size_t iPosWhereFilter = iPosWhere + 5;
+		                string whereFilter = origQuery.substr(iPosWhereFilter,
+		                                            iPosEnd1 - iPosWhereFilter);
+		                cout << "where " << whereFilter << endl;
+	             	}
+	             	
+	             	string table = origQuery.substr(iPosStart,
+	             									iPosWhere - iPosStart);
+	                cout << "tableName12 " << table << endl;
+	                
+	                //iPosStart = iPosEnd1
+	                return true;
                 } else {
                     iPosEnd1 = sLineIn.find(")", iPosStart);
                     returningNestedLevel = iPosEnd1 - 1;
