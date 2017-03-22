@@ -179,3 +179,84 @@ std::vector<std::tuple<int, std::string> > Table::getRow(int iIndex)
   return vReturn;
 }
 
+void Table::setPrimaryKey(std::string sKeyIn)
+  {
+  	cout << "sKeyIn " << sKeyIn << endl;
+    for (int i = 0; i < vColumnName.size(); ++i)
+    {
+      //Execute if the column name is equal to the parameter name
+      cout << std::get < 1 > (vColumnName[i]) << endl;
+      if (std::get < 1 > (vColumnName[i]) == sKeyIn)
+      {
+        //set the boolean value in the column tuple to true, to show it is key
+        std::get < 2 > (vColumnName[i]) = true;
+        return;
+      }
+    }
+
+    printf("| Primary Key was not set\n");
+  }
+
+  void Table::removePrimaryKey(std::string sKeyIn)
+  {
+    for (int i = 0; i < vColumnName.size(); ++i)
+    {
+      //find the column that is the key and set the bool to false, remove key
+      if (std::get < 1 > (vColumnName[i]) == sKeyIn)
+      {
+        std::get < 2 > (vColumnName[i]) = false;
+        return;
+      }
+    }
+
+    printf("| Primary Key was not removed\n");
+  }
+
+  //rename the class table to parameter name
+  void Table::rename(std::string sNewName)
+  {
+    sTableName = sNewName;
+  }
+
+  //add a column to the class vector
+  void Table::addColumn(std::tuple<int, std::string, bool, std::string> s)
+  {
+    vColumnName.push_back(s);
+  }
+
+  //add a row to the row vector
+  void Table::addRow(std::vector<std::tuple<int, std::string> > v)
+  {
+    vRows.push_back(v);
+  }
+
+  //find the row and delete it from the vector
+  void Table::deleteRow(std::vector<std::tuple<int, std::string> > vRowIn)
+  {
+    for (int i = 0; i < vRows.size(); ++i)
+    {
+      if (vRows[i] == vRowIn)
+      {
+        vRows.erase(vRows.begin() + i);
+        return;
+      }
+    }
+    printf("| The row was not removed\n");
+  }
+
+  //Getters
+  std::string Table::getTableName()
+  {
+    return sTableName;
+  }
+
+  std::vector<std::tuple<int, std::string, bool, std::string> > Table::getColumnNames()
+  {
+    return vColumnName;
+  }
+
+  std::vector<std::vector<std::tuple<int, std::string> > > Table::getRows()
+  {
+    return vRows;
+  }
+
