@@ -265,7 +265,7 @@ bool Parser::findCreateTable(string sLineIn)
                     cout << "primary keys " << sPrimaryKeys << endl;
 
                     //remove the spaces from the name of the table
-                    sTableName = cleanSpaces(sTableName);
+                    sTableName = Parser::cleanSpaces(sTableName);
 
                     //call the create table function after the helper functions
                     e.createTable(sTableName, createColVector(sColumns),
@@ -327,7 +327,7 @@ bool Parser::findSelect(string sLineIn)
                 {
                     string tableName = origQuery.substr(iPosStart,
                                                         iPosEnd1 - iPosStart);
-                    tableName = cleanSpaces(tableName);
+                    tableName = Parser::cleanSpaces(tableName);
                     returningNestedLevel = iPosEnd1 - 1;
                     cout << "tableName " << tableName << endl;
                     cout << "colNames " << colNames << endl;
@@ -405,7 +405,7 @@ bool Parser::findInsertInto(string sLineIn)
             //Get the name of the table from the string
             string sTableNameOut = sLineIn.substr(iPosStart,
                                                   iPosEnd1 - iPosStart);
-            sTableNameOut = cleanSpaces(sTableNameOut);
+            sTableNameOut = Parser::cleanSpaces(sTableNameOut);
             cout << sTableNameOut << endl;
 
             //reposition the iterators to get the row values
@@ -493,7 +493,7 @@ bool Parser::findShowTable(string sLineIn)
   {
     //Get the name of the table from the string
     string sTableName = sLineIn.substr(iPosStart + SHOW_TABLE_SIZE);
-    sTableName = cleanSpaces(sTableName);
+    sTableName = Parser::cleanSpaces(sTableName);
     
     cout << "table name " << sTableName << endl;
 
@@ -595,7 +595,7 @@ void Parser::select(string sNewTableName, string sRestOfLine)
     size_t iParenth2 = sRestOfLine.find(")", iParenth1 + 1);
     string sValues = removeSpaces(
         sRestOfLine.substr(iParenth1 + 1, iParenth2 - iParenth1));
-    string sTableNameIn = cleanSpaces(sRestOfLine.substr(iParenth2 + 1));
+    string sTableNameIn = Parser::cleanSpaces(sRestOfLine.substr(iParenth2 + 1));
 //    vector < string > vValues = makeTokens(sValues);
 
     if (sTableNameIn == sNewTableName)
@@ -666,7 +666,7 @@ vector<string> Parser::createVector(string sLineIn)
     //clean up the words that were seperated out
     for (int i = 0; i < vReturn.size(); ++i)
     {
-        vReturn[i] = cleanSpaces(vReturn[i]);
+        //vReturn[i] = cleanSpaces(vReturn[i]);
         std::cout<<"vReturn: "<<vReturn[i]<<endl;
     }
 
@@ -704,7 +704,7 @@ vector<tuple<string, string, bool> > Parser::createColVector(string sLineIn)
         string sType, sName;
 
         //See what type of column it is and create a tuple with the name & type
-        size_t iVar = vCol[i].find("VARCHAR");
+        size_t iVar = vCol[i].find("CHAR");
 
         if (iVar != std::string::npos)
         {

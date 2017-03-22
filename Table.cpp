@@ -26,6 +26,7 @@
 #include <tuple>
 #include <fstream>
 #include "Table.h"
+#include "Parser.h"
 
 const int COLUMN_WIDTH = 20;
 std::fstream outputFile;
@@ -182,14 +183,16 @@ std::vector<std::tuple<int, std::string> > Table::getRow(int iIndex)
 void Table::setPrimaryKey(std::string sKeyIn)
   {
   	cout << "sKeyIn " << sKeyIn << endl;
+  	sKeyIn = Parser::cleanSpaces(sKeyIn);
     for (int i = 0; i < vColumnName.size(); ++i)
     {
       //Execute if the column name is equal to the parameter name
       cout << std::get < 1 > (vColumnName[i]) << endl;
-      if (std::get < 1 > (vColumnName[i]) == sKeyIn)
+      if (Parser::cleanSpaces(std::get < 1 > (vColumnName[i])) == sKeyIn)
       {
         //set the boolean value in the column tuple to true, to show it is key
         std::get < 2 > (vColumnName[i]) = true;
+        cout << "primary key set" << endl;
         return;
       }
     }

@@ -73,7 +73,7 @@ public:
   vector<tuple<string, string, bool> > createColVector(string sLineIn);
   vector<string> createVector(string sLineIn);
   vector<tuple<int, string> > createRowVector(string sLineIn);
-    string cleanSpaces(string sLineIn);
+    static string cleanSpaces(string sLineIn);
     string removeSpaces(string sLineIn);
     bool checkParenthesis(string sLineIn);
     bool semicolonExists(string sLineIn);
