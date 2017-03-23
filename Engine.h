@@ -36,7 +36,7 @@ class Engine {
 	    Engine() {};
 
 	    void createTable(string sTableNameIn,
-	                     vector<tuple<string, string, bool> > vColumnNamesIn,
+	                     vector<tuple<string, string, int, bool> > vColumnNamesIn,
 	                     vector<string> vKeys);
 	    void displayTable(string sTableNameIn);
 	    void addRow(string sTableNameIn, vector<tuple<int, string> > vRowIn);

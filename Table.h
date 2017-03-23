@@ -33,7 +33,7 @@ using namespace std;
 class Table
 {
 private:
-  std::vector<std::tuple<int, std::string, bool, std::string> > vColumnName;
+  std::vector<std::tuple<int, std::string, bool, std::string, int> > vColumnName;
   std::vector<std::vector<std::tuple<int, std::string> > > vRows;
   std::string sTableName;
 
@@ -62,7 +62,7 @@ public:
   void rename(std::string sNewName);
 
   //add a column to the class vector
-  void addColumn(std::tuple<int, std::string, bool, std::string> s);
+  void addColumn(std::tuple<int, std::string, bool, std::string, int> s);
 
   //add a row to the row vector
   void addRow(std::vector<std::tuple<int, std::string> > v);
@@ -73,7 +73,7 @@ public:
   //Getters
   std::string getTableName();
 
-  std::vector<std::tuple<int, std::string, bool, std::string> > getColumnNames();
+  std::vector<std::tuple<int, std::string, bool, std::string, int> > getColumnNames();
 
   std::vector<std::vector<std::tuple<int, std::string> > > getRows();
 

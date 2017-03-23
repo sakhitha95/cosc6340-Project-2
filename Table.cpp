@@ -222,7 +222,7 @@ void Table::setPrimaryKey(std::string sKeyIn)
   }
 
   //add a column to the class vector
-  void Table::addColumn(std::tuple<int, std::string, bool, std::string> s)
+  void Table::addColumn(std::tuple<int, std::string, bool, std::string, int> s)
   {
     vColumnName.push_back(s);
   }
@@ -248,17 +248,17 @@ void Table::setPrimaryKey(std::string sKeyIn)
   }
 
   //Getters
-  std::string Table::getTableName()
+  string Table::getTableName()
   {
     return sTableName;
   }
 
-  std::vector<std::tuple<int, std::string, bool, std::string> > Table::getColumnNames()
+  vector<tuple<int, string, bool, string, int> > Table::getColumnNames()
   {
     return vColumnName;
   }
 
-  std::vector<std::vector<std::tuple<int, std::string> > > Table::getRows()
+  vector<vector<tuple<int, string> > > Table::getRows()
   {
     return vRows;
   }

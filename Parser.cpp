@@ -693,35 +693,42 @@ vector<tuple<int, string> > Parser::createRowVector(string sLineIn)
 /*******************************************************************************
  Takes in a string, parses it, and creates a vector of columns to send back
  *******************************************************************************/
-vector<tuple<string, string, bool> > Parser::createColVector(string sLineIn)
+vector<tuple<string, string, int, bool> > Parser::createColVector(string sLineIn)
 {
     //<type, name, primarykey>
-    vector < tuple<string, string, bool> > vColVectorOut;
+    vector < tuple<string, string, int, bool> > vColVectorOut;
     vector < string > vCol = createVector(sLineIn);
 
     for (int i = 0; i < vCol.size(); i++)
     {
         string sType, sName;
+        int length = 1;
 
         //See what type of column it is and create a tuple with the name & type
         size_t iVar = vCol[i].find("CHAR");
-
         if (iVar != std::string::npos)
         {
             sType = "string";
-            sName = vCol[i].substr(0, iVar);
+            string col = vCol[i];
+            sName = col.substr(0, iVar);
+            
+            size_t leftParen = col.find("(") + 1;
+            size_t rightParen = col.find(")");
+            length = stoi(col.substr(leftParen, rightParen - leftParen));
+            cout << "char length " << length << endl;
         }
 
         size_t iInt = vCol[i].find("INT");
-
         if (iInt != std::string::npos)
         {
             sType = "int";
             sName = vCol[i].substr(0, iInt);
         }
+        
+        //cout << "colname " << sName << endl;
 
         //push the newly created column into the vector to send back
-        vColVectorOut.push_back(make_tuple(sName, sType, false));
+        vColVectorOut.push_back(make_tuple(sName, sType, length, false));
 
     }
     return vColVectorOut;
