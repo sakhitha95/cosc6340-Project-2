@@ -72,11 +72,32 @@ void Engine::displayTable(string sTableNameIn)
    ****************************************************************************/
 void Engine::addRow(string sTableNameIn, vector<tuple<int, string> > vRowIn)
 {
+cout << "addRow" << endl;
+	ofstream out;
+	out.open("test.tbl", ios::binary | ios::out);
+	int num = 1;
+	char* hiOut = new char[3];
+	hiOut[0] = 'H';
+	hiOut[1] = 'i';
+	hiOut[2] = '\0'; // null terminator
+	//out.write((char*)&num, sizeof(int));
+	out.write(hiOut, sizeof(char)*3);
+	out.close();
+	
+	ifstream in;
+	int x;
+	char* hi = new char[3];
+	in.open("test.tbl", ios::binary | ios::in);
+	//in.read(&x, 4);
+	in.read(hi, sizeof(char)*3);
+	//cout << x << endl;
+	cout << "back in " << hi << endl;
+
     for (int i = 0; i < vTableList.size(); ++i)
     {
         if (vTableList[i].getTableName() == sTableNameIn)
         {
-            vTableList[i].addRow(vRowIn);
+            //vTableList[i].addRow(vRowIn);
             return;
         }
     }
