@@ -67,6 +67,32 @@ void Engine::displayTable(string sTableNameIn)
     }
     printf("| The table was not found\n");
 }
+
+void Engine::writeStringToFile(string val, ofstream& out)
+{
+	char* valOut = new char[val.length()+1];
+	for (int i = 0; i < val.length(); i++) {
+		valOut[i] = val[i];
+		cout << "valOut[i] " << valOut[i] << endl;
+	}
+	valOut[val.length()] = '\0';
+	
+	out.write(valOut, sizeof(char)*(val.length()+1));
+}
+
+void Engine::writeIntToFile(int num, ofstream& out)
+{
+	string numStr = to_string(num);
+	char* numC = new char[numStr.length()+1];
+	for (int i = 0; i < numStr.length(); i++) {
+		numC[i] = numStr[i];
+		cout << "numC[i] " << numC[i] << endl;
+	}
+	numC[numStr.length()] = '\0';
+	
+	out.write(numC, sizeof(char)*(numStr.length()+1));
+}
+
 /****************************************************************************
    Adds a row to the specified table
    ****************************************************************************/
@@ -75,24 +101,15 @@ void Engine::addRow(string sTableNameIn, vector<tuple<int, string> > vRowIn)
 	cout << "addRow" << endl;
 	ofstream out;
 	out.open("test.tbl", ios::binary | ios::out);
+	
 	int num = 1453659877;
-	char* hiOut = new char[3];
-	hiOut[0] = 'H';
-	hiOut[1] = 'i';
-	hiOut[2] = '\0'; // null terminator
-	string numStr = to_string(num);
-	cout << "numStr " << numStr << endl;
-	char* numC = new char[numStr.length()+1];
-	cout << "numC " << numC << endl;
-	for (int i = 0; i < numStr.length(); i++) {
-		numC[i] = numStr[i];
-		cout << "numC[i] " << numC[i] << endl;
-	}
-	numC[numStr.length()] = '\0';
-	out.write(hiOut, sizeof(char)*3);
-	out.write(numC, sizeof(char)*(numStr.length()+1));
+	string hiStr = "hi";
+	
+	Engine::writeStringToFile(hiStr, out);
+	Engine::writeIntToFile(num, out);
 	out.close();
-cout << "file closed " << endl;
+	
+//cout << "file closed " << endl;
 
 	ifstream in;
 	char* hi = new char[3];
