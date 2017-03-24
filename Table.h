@@ -18,25 +18,23 @@ class Table
 {
 private:
     //sequence num, column name, isPrimary, stype, block size,
-    std::vector<std::tuple<int, std::string, bool, std::string, int > > vColumnName;
+    vector<tuple<int, string, bool, string, int > > vColumnName;
 
-    //std::vector<std::vector<std::tuple<int, std::string> > > vRows;
-    //std::vector<std::string> primaryKey;
+    //vector<vector<tuple<int, string> > > vRows;
+    //vector<string> primaryKey;
 
     //recordSize, totalSize, numOfRecords
-    std::tuple<int, int, int> vSpecs;
+    tuple<int, int, int> vSpecs;
 
-    std::string sTableName;
+    string sTableName;
 
 public:
     //constructors
     Table()
-    {
-    }
-    ;
+    {};
 
     //Constructor that takes in a name for the table
-    Table(std::string sTableNameIn)
+    Table(string sTableNameIn)
     {
         sTableName = sTableNameIn;
     }
@@ -45,15 +43,15 @@ public:
     void displayTable();
 
     //Setters
-    void setPrimaryKey(std::string sKeyIn)
+    void setPrimaryKey(string sKeyIn)
     {
         for (int i = 0; i < vColumnName.size(); ++i)
         {
             //Execute if the column name is equal to the parameter name
-            if (std::get < 1 > (vColumnName[i]) == sKeyIn)
+            if (get < 1 > (vColumnName[i]) == sKeyIn)
             {
                 //set the boolean value in the column tuple to true, to show it is key
-                std::get < 2 > (vColumnName[i]) = true;
+                get < 2 > (vColumnName[i]) = true;
                 return;
             }
         }
@@ -62,16 +60,16 @@ public:
     }
 
     //add a column to the class vector
-    void addColumn(std::tuple<int, std::string, bool, std::string, int> s)
+    void addColumn(tuple<int, string, bool, string, int> s)
     {
         vColumnName.push_back(s);
     }
-    void addSpecs(std::tuple<int, int, int > d){
+    void addSpecs(tuple<int, int, int > d){
         vSpecs = d;
     }
 
     //add a row to the row vector
-    void addRow( std::vector<std::tuple<int, std::string> > v)
+    void addRow(vector<tuple<int, string> > v)
     {
         ofstream outfile;
         string fileName= sTableName +".tbl";
@@ -82,7 +80,7 @@ public:
             //string sName = get < 0 > (vColumnName[i]);
             //string sType = get < 1 > (vColumnName[i]);
             int bSize= get < 4 > (vColumnName[i]);
-            outfile.write((char*)&(std::get<1>(v[i])), bSize);
+            outfile.write((char*)&(get<1>(v[i])), bSize);
         }
 
         outfile.close();
@@ -90,17 +88,16 @@ public:
     }
 
     //Getters
-    std::string getTableName()
+    string getTableName()
     {
         return sTableName;
     }
 
-    std::tuple<int, std::string, bool, std::string> getColumnIndex(
-            std::string sColumnNameIn);
+    tuple<int, string, bool, string> getColumnIndex(string sColumnNameIn);
 
-    std::vector<std::tuple<int, std::string> > getRow(int iIndex);
+    vector<tuple<int, string> > getRow(int iIndex);
 
-    std::vector<std::string> getColumnValues(int iIndex);
+    vector<string> getColumnValues(int iIndex);
 
 };
 

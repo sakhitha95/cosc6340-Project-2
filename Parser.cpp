@@ -112,7 +112,7 @@ bool Parser::readFromFile(string sFileName)
  *******************************************************************************/
 bool Parser::writeToFile(string sFilename)
 {
-  std::fstream outputFile;
+  fstream outputFile;
   //open the file and write the contents of the class vector in there
   //outputFile.open(sFilename + ".db");
   for (int i = 0; i < vValuesRead.size(); ++i)
@@ -219,12 +219,12 @@ bool Parser::findCreateTable(string sLineIn)
     size_t iPosStart = sLineIn.find("CREATE TABLE");
 
     //Execute if create table was found in the string
-    if (iPosStart != std::string::npos)
+    if (iPosStart != string::npos)
     {
         size_t iPosEnd = sLineIn.find("(", iPosStart + 1);
 
         //execute if '(' was found in the string
-        if (iPosEnd != std::string::npos)
+        if (iPosEnd != string::npos)
         {
             //get the table name
             string sTableName = sLineIn.substr(iPosStart + CREATE_TABLE_SIZE,
@@ -242,7 +242,7 @@ bool Parser::findCreateTable(string sLineIn)
             }
 
             //Execute if primary key was found in string
-            if (iPosEnd != std::string::npos)
+            if (iPosEnd != string::npos)
             {
                 //get the column names
                 string sColumns = sLineIn.substr(iPosStart,
@@ -256,7 +256,7 @@ bool Parser::findCreateTable(string sLineIn)
                 iPosEnd = sLineIn.find(")", iPosStart);
 
                 //execute if ')' was found in the string
-                if (iPosEnd != std::string::npos)
+                if (iPosEnd != string::npos)
                 {
                     //get the primary keys
                     string sPrimaryKeys = sLineIn.substr(iPosStart,
@@ -284,13 +284,13 @@ bool Parser::findSelect(string sLineIn)
 {
     size_t iPosStart = sLineIn.find("SELECT");
 
-    if (iPosStart != std::string::npos)
+    if (iPosStart != string::npos)
     {
         cout << "Select found" << endl;
         iPosStart += 6;
         size_t iPosEnd1 = sLineIn.find("FROM", iPosStart);
 
-        if (iPosEnd1 != std::string::npos)
+        if (iPosEnd1 != string::npos)
         {
             cout << "From found" << endl;
             string colNames = sLineIn.substr(iPosStart,
@@ -300,7 +300,7 @@ bool Parser::findSelect(string sLineIn)
             iPosStart = iPosEnd1 + 4;
 
             size_t nestedSelectPos = sLineIn.find("(", iPosStart);
-            if (nestedSelectPos != std::string::npos) {
+            if (nestedSelectPos != string::npos) {
                 nestedLevel++;
                 cout << "detected nested query" << endl;
                 if (nestedLevel > 3) {
@@ -319,11 +319,11 @@ bool Parser::findSelect(string sLineIn)
                 iPosStart = origQuery.find(")", returningNestedLevel) + 1;
                 iPosEnd1 = origQuery.find(")", iPosStart);
 
-                if (iPosEnd1 == std::string::npos) {
+                if (iPosEnd1 == string::npos) {
                     iPosEnd1 = origQuery.find(";", iPosStart);
                 }
 
-                if (iPosEnd1 != std::string::npos)
+                if (iPosEnd1 != string::npos)
                 {
                     string tableName = origQuery.substr(iPosStart,
                                                         iPosEnd1 - iPosStart);
@@ -362,7 +362,7 @@ bool Parser::findSelect(string sLineIn)
                 } else {
                     iPosEnd1 = sLineIn.find(")", iPosStart);
                     returningNestedLevel = iPosEnd1 - 1;
-                    if (iPosEnd1 != std::string::npos)
+                    if (iPosEnd1 != string::npos)
                     {
                         //cout << sLineIn << endl;
                         string tableName = sLineIn.substr(iPosStart,
@@ -388,7 +388,7 @@ bool Parser::findInsertInto(string sLineIn)
 {
     size_t iPosStart = sLineIn.find("INSERT INTO");
 
-    if (iPosStart != std::string::npos)
+    if (iPosStart != string::npos)
     {
 	    cout << "insert into found" << endl;
         iPosStart += 11;
@@ -400,7 +400,7 @@ bool Parser::findInsertInto(string sLineIn)
         // insert into T3 select T.A from T1 order by B;
 
         //Execute if values from relation is found
-        if (iPosEnd1 != std::string::npos) // values
+        if (iPosEnd1 != string::npos) // values
         {
             //Get the name of the table from the string
             string sTableNameOut = sLineIn.substr(iPosStart,
@@ -412,7 +412,7 @@ bool Parser::findInsertInto(string sLineIn)
             iPosStart = sLineIn.find("(") + 1;
             iPosEnd1 = sLineIn.find(")");
 
-            if (iPosStart != std::string::npos && iPosEnd1 != std::string::npos)
+            if (iPosStart != string::npos && iPosEnd1 != string::npos)
             {
                 //Get the row attributes from the string
                 string sRow = sLineIn.substr(iPosStart,
@@ -437,7 +437,7 @@ bool Parser::findInsertInto(string sLineIn)
             }
         }//change
             //Execute if values from is found
-        else if ((iPosEnd1 = sLineIn.find("SELECT", iPosStart)) != std::string::npos)
+        else if ((iPosEnd1 = sLineIn.find("SELECT", iPosStart)) != string::npos)
         {
             //Get the name of the table from the string
             iPosStart = iPosEnd1 + 6;
@@ -451,7 +451,7 @@ bool Parser::findInsertInto(string sLineIn)
             iPosStart = iPosEnd1 + 4;
             
             // Group By isn't required for Phase 1, but this should work when it is
-            /*if ((iPosEnd1 = sLineIn.find("ORDER BY", iPosStart)) != std::string::npos) {
+            /*if ((iPosEnd1 = sLineIn.find("ORDER BY", iPosStart)) != string::npos) {
             
                 string tableName = sLineIn.substr(iPosStart,
                                              	iPosEnd1 - iPosStart);
@@ -466,7 +466,7 @@ bool Parser::findInsertInto(string sLineIn)
             		cout << "group by col " << groupByCol << endl;
             	}
             } else //*/
-            if ((iPosEnd1 = sLineIn.find(";")) != std::string::npos)
+            if ((iPosEnd1 = sLineIn.find(";")) != string::npos)
             {
                 //Get the tableName from the string
                 string tableName = sLineIn.substr(iPosStart,
@@ -489,7 +489,7 @@ bool Parser::findShowTable(string sLineIn)
 {
   size_t iPosStart = sLineIn.find("SHOW TABLE");
 
-  if (iPosStart != std::string::npos)
+  if (iPosStart != string::npos)
   {
     //Get the name of the table from the string
     string sTableName = sLineIn.substr(iPosStart + SHOW_TABLE_SIZE);
@@ -517,7 +517,7 @@ bool Parser::findShowTables(string sLineIn)
 {
   size_t iPosStart = sLineIn.find("SHOW TABLES;");
 
-  if (iPosStart != std::string::npos)
+  if (iPosStart != string::npos)
   {
 	cout << "found show table" << endl;
 
@@ -589,7 +589,7 @@ void Parser::select(string sNewTableName, string sRestOfLine)
 {
   size_t iPos = sRestOfLine.find("select");
 
-  if (iPos != std::string::npos)
+  if (iPos != string::npos)
   {
     size_t iParenth1 = sRestOfLine.find("(");
     size_t iParenth2 = sRestOfLine.find(")", iParenth1 + 1);
@@ -667,7 +667,7 @@ vector<string> Parser::createVector(string sLineIn)
     //for (int i = 0; i < vReturn.size(); ++i)
     {
         //vReturn[i] = cleanSpaces(vReturn[i]);
-        //std::cout<<"vReturn: "<<vReturn[i]<<endl;
+        //cout<<"vReturn: "<<vReturn[i]<<endl;
     }
 
     return vReturn;
@@ -706,7 +706,7 @@ vector<tuple<string, string, int, bool> > Parser::createColVector(string sLineIn
 
         //See what type of column it is and create a tuple with the name & type
         size_t iVar = vCol[i].find("CHAR");
-        if (iVar != std::string::npos)
+        if (iVar != string::npos)
         {
             sType = "string";
             string col = vCol[i];
@@ -719,7 +719,7 @@ vector<tuple<string, string, int, bool> > Parser::createColVector(string sLineIn
         }
 
         size_t iInt = vCol[i].find("INT");
-        if (iInt != std::string::npos)
+        if (iInt != string::npos)
         {
             sType = "int";
             sName = vCol[i].substr(0, iInt);

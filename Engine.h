@@ -38,7 +38,7 @@ class Engine {
 
 	    void createTable(string sTableNameIn,
 	                     vector<tuple<string, string, int, bool> > vColumnNamesIn,
-	                     /*std::tuple<int, int, int > vSpecs,*/
+	                     /*tuple<int, int, int > vSpecs,*/
 	                     vector<string> vKeys);
 	    void displayTable(string sTableNameIn);
 	    void addRow(string sTableNameIn, vector<tuple<int, string> > vRowIn);
