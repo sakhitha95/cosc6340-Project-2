@@ -25,6 +25,7 @@ vector<Table> vTableList;
 
 void Engine::createTable(string sTableNameIn,
                          vector<tuple<string, string, int, bool> > vColumnNamesIn,
+                         /*std::tuple<int, int, int> specs,*/
                          vector<string> vKeys)
 {
 
@@ -39,6 +40,8 @@ void Engine::createTable(string sTableNameIn,
 
         t.addColumn(make_tuple(i, sName, bKey, sType, length));
     }
+    
+    //t.addSpecs(specs);
 
     for (int i = 0; i < vKeys.size(); ++i)
     {
