@@ -22,6 +22,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
+#include <string.h>
 #include "Table.h"
 
 using namespace std;
@@ -44,10 +45,9 @@ class Engine {
 	    
 	    static void writeStringToFile(string val, ofstream& out);
 	    static void writeIntToFile(int val, ofstream& out);
+	    static int convertCharToInt(char* val);
 
 	};
-
-
 
 #endif
 

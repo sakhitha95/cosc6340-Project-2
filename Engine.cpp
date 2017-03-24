@@ -73,7 +73,7 @@ void Engine::writeStringToFile(string val, ofstream& out)
 	char* valOut = new char[val.length()+1];
 	for (int i = 0; i < val.length(); i++) {
 		valOut[i] = val[i];
-		cout << "valOut[i] " << valOut[i] << endl;
+		//cout << "valOut[i] " << valOut[i] << endl;
 	}
 	valOut[val.length()] = '\0';
 	
@@ -86,11 +86,21 @@ void Engine::writeIntToFile(int num, ofstream& out)
 	char* numC = new char[numStr.length()+1];
 	for (int i = 0; i < numStr.length(); i++) {
 		numC[i] = numStr[i];
-		cout << "numC[i] " << numC[i] << endl;
+		//cout << "numC[i] " << numC[i] << endl;
 	}
 	numC[numStr.length()] = '\0';
 	
 	out.write(numC, sizeof(char)*(numStr.length()+1));
+}
+
+int Engine::convertCharToInt(char* val)
+{
+	string xStr;
+	for (int i = 0; i < strlen(val); i++) {
+		xStr[i] = val[i];
+		//cout << "xStr[i] " << xStr[i] << endl;
+	}
+	return stoi(xStr);
 }
 
 /****************************************************************************
@@ -109,26 +119,18 @@ void Engine::addRow(string sTableNameIn, vector<tuple<int, string> > vRowIn)
 	Engine::writeIntToFile(num, out);
 	out.close();
 	
-//cout << "file closed " << endl;
 
 	ifstream in;
-	char* hi = new char[3];
-	char* xC = new char[numStr.length()+1];
-	int x;
+	char* hi = new char[hiStr.length()+1];
+	char* xC = new char[to_string(num).length()+1];
+	
 	in.open("test.tbl", ios::binary | ios::in);
-	in.read(hi, sizeof(char)*3);
-	in.read(xC, sizeof(char)*(numStr.length()+1));
-	//x = stoi(xStr);
+	in.read(hi, sizeof(char)*(hiStr.length()+1));
+	in.read(xC, sizeof(char)*(to_string(num).length()+1));
 	cout << "back in " << hi << endl;
 	cout << "xC " << xC << endl;
-	//cout << x << endl;
 
-	string xStr;
-	for (int i = 0; i < numStr.length(); i++) {
-		xStr[i] = xC[i];
-		cout << "numC[i] " << numC[i] << endl;
-	}
-	x = stoi(xStr);
+	int x = Engine::convertCharToInt(xC);
 	cout << "x num " << x << endl;
 
     for (int i = 0; i < vTableList.size(); ++i)
