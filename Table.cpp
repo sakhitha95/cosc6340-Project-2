@@ -38,7 +38,7 @@ void Table::displayTable()
   // Print the lines of the table for a pretty output
   cout << "\n ";
 
-  for (int i = 0; i < vColumnName.size(); ++i)
+  for (int i = 0; i < vColumnNames.size(); ++i)
   {
     cout << "-----------------------";
   }
@@ -46,18 +46,18 @@ void Table::displayTable()
 
   cout << " | " << sTableName << "\n ";
 
-  for (int i = 0; i < vColumnName.size(); ++i)
+  for (int i = 0; i < vColumnNames.size(); ++i)
   {
     cout << "+----------------------";
   }
   cout << "\n";
 
   // Determine how far to space the column bars
-  for (int i = 0; i < vColumnName.size(); ++i)
+  for (int i = 0; i < vColumnNames.size(); ++i)
   {
     //get the column values for printing
-    string sColName = get < 1 > (vColumnName[i]);
-    bool bPrimaryKey = get < 2 > (vColumnName[i]);
+    string sColName = get < 1 > (vColumnNames[i]);
+    bool bPrimaryKey = get < 2 > (vColumnNames[i]);
 
     //see if it is a primary key, for formatting
     if (bPrimaryKey)
@@ -74,7 +74,7 @@ void Table::displayTable()
   cout << "\n ";
 
   // Print the row dividers for the number of columns
-  for (int i = 0; i < vColumnName.size(); ++i)
+  for (int i = 0; i < vColumnNames.size(); ++i)
   {
     cout << "+----------------------";
   }
@@ -83,12 +83,12 @@ void Table::displayTable()
 //  for (int i = 0; i < vRows.size(); ++i)
 //  {
 //
-//    for (int a = 0; a < vColumnName.size(); ++a)
+//    for (int a = 0; a < vColumnNames.size(); ++a)
 //    {
 //      for (vector<tuple<int, string> >::iterator current =
 //              vRows[i].begin(); current != vRows[i].end(); ++current)
 //      {
-//        if (get < 0 > (*current) == get < 0 > (vColumnName[a]))
+//        if (get < 0 > (*current) == get < 0 > (vColumnNames[a]))
 //        {
 //          string sCurrent = get < 1 > (*current);
 //          if (sCurrent.size() > COLUMN_WIDTH)
@@ -104,7 +104,7 @@ void Table::displayTable()
 //    }
 //
 //    cout << "\n ";
-//    for (int y = 0; y < vColumnName.size(); ++y)
+//    for (int y = 0; y < vColumnNames.size(); ++y)
 //    {
 //      cout << "+----------------------";
 //    }
@@ -120,14 +120,14 @@ void Table::displayTable()
 tuple<int, string, bool, string> Table::getColumnIndex(
         string sColumnNameIn)
 {
-  for (int i = 0; i < vColumnName.size(); ++i)
+  for (int i = 0; i < vColumnNames.size(); ++i)
   {
     //Execute if the column was found
-    if (get < 1 > (vColumnName[i]) == sColumnNameIn)
+    if (get < 1 > (vColumnNames[i]) == sColumnNameIn)
     {
-      int iColumnIndex = get < 0 > (vColumnName[i]);
-      bool bColumnKey = get < 2 > (vColumnName[i]);
-      string sColumnType = get < 3 > (vColumnName[i]);
+      int iColumnIndex = get < 0 > (vColumnNames[i]);
+      bool bColumnKey = get < 2 > (vColumnNames[i]);
+      string sColumnType = get < 3 > (vColumnNames[i]);
 
       return make_tuple(iColumnIndex, sColumnType, bColumnKey, sColumnType);
     }
@@ -154,9 +154,9 @@ vector<tuple<int, string> > Table::getRow(int iIndex)
   if(iIndex*get<0>(vSpecs)< get<1>(vSpecs) and iIndex<get<2>(vSpecs)){
 
     infile.seekg(iIndex*get<0>(vSpecs), ios::beg);
-    for (int i = 0; i< vColumnName.size()-1; ++i){
-      string sName = get < 1 > (vColumnName[i]);
-      int bSize= get < 4 > (vColumnName[i]);
+    for (int i = 0; i< vColumnNames.size()-1; ++i){
+      string sName = get < 1 > (vColumnNames[i]);
+      int bSize= get < 4 > (vColumnNames[i]);
       infile.read((char *)&sName, bSize);
       vReturn.push_back(make_tuple( i,sName));
     }

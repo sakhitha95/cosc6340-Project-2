@@ -18,7 +18,7 @@ class Table
 {
 private:
     //sequence num, column name, isPrimary, stype, block size,
-    vector<tuple<int, string, bool, string, int > > vColumnName;
+    vector<tuple<int, string, bool, string, int > > vColumnNames;
 
     //vector<vector<tuple<int, string> > > vRows;
     //vector<string> primaryKey;
@@ -45,13 +45,13 @@ public:
     //Setters
     void setPrimaryKey(string sKeyIn)
     {
-        for (int i = 0; i < vColumnName.size(); ++i)
+        for (int i = 0; i < vColumnNames.size(); ++i)
         {
             //Execute if the column name is equal to the parameter name
-            if (get < 1 > (vColumnName[i]) == sKeyIn)
+            if (get < 1 > (vColumnNames[i]) == sKeyIn)
             {
                 //set the boolean value in the column tuple to true, to show it is key
-                get < 2 > (vColumnName[i]) = true;
+                get < 2 > (vColumnNames[i]) = true;
                 return;
             }
         }
@@ -62,7 +62,7 @@ public:
     //add a column to the class vector
     void addColumn(tuple<int, string, bool, string, int> s)
     {
-        vColumnName.push_back(s);
+        vColumnNames.push_back(s);
     }
     void addSpecs(tuple<int, int, int > d){
         vSpecs = d;
@@ -75,11 +75,11 @@ public:
         string fileName= sTableName +".tbl";
         outfile.open(fileName, ios::binary | ios::out);
 
-        for (int i = 0; i < vColumnName.size()-1; ++i)
+        for (int i = 0; i < vColumnNames.size()-1; ++i)
         {
-            //string sName = get < 0 > (vColumnName[i]);
-            //string sType = get < 1 > (vColumnName[i]);
-            int bSize= get < 4 > (vColumnName[i]);
+            //string sName = get < 0 > (vColumnNames[i]);
+            //string sType = get < 1 > (vColumnNames[i]);
+            int bSize= get < 4 > (vColumnNames[i]);
             outfile.write((char*)&(get<1>(v[i])), bSize);
         }
 
