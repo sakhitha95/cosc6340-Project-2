@@ -72,26 +72,47 @@ void Engine::displayTable(string sTableNameIn)
    ****************************************************************************/
 void Engine::addRow(string sTableNameIn, vector<tuple<int, string> > vRowIn)
 {
-cout << "addRow" << endl;
+	cout << "addRow" << endl;
 	ofstream out;
 	out.open("test.tbl", ios::binary | ios::out);
-	int num = 1;
+	int num = 1453659877;
 	char* hiOut = new char[3];
 	hiOut[0] = 'H';
 	hiOut[1] = 'i';
 	hiOut[2] = '\0'; // null terminator
-	//out.write((char*)&num, sizeof(int));
+	string numStr = to_string(num);
+	cout << "numStr " << numStr << endl;
+	char* numC = new char[numStr.length()+1];
+	cout << "numC " << numC << endl;
+	for (int i = 0; i < numStr.length(); i++) {
+		numC[i] = numStr[i];
+		cout << "numC[i] " << numC[i] << endl;
+	}
+	numC[numStr.length()] = '\0';
 	out.write(hiOut, sizeof(char)*3);
+	out.write(numC, sizeof(char)*(numStr.length()+1));
 	out.close();
-	
+cout << "file closed " << endl;
+
 	ifstream in;
-	int x;
 	char* hi = new char[3];
+	char* xC = new char[numStr.length()+1];
+	int x;
 	in.open("test.tbl", ios::binary | ios::in);
-	//in.read(&x, 4);
 	in.read(hi, sizeof(char)*3);
-	//cout << x << endl;
+	in.read(xC, sizeof(char)*(numStr.length()+1));
+	//x = stoi(xStr);
 	cout << "back in " << hi << endl;
+	cout << "xC " << xC << endl;
+	//cout << x << endl;
+
+	string xStr;
+	for (int i = 0; i < numStr.length(); i++) {
+		xStr[i] = xC[i];
+		cout << "numC[i] " << numC[i] << endl;
+	}
+	x = stoi(xStr);
+	cout << "x num " << x << endl;
 
     for (int i = 0; i < vTableList.size(); ++i)
     {

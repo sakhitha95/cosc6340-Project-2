@@ -664,10 +664,10 @@ vector<string> Parser::createVector(string sLineIn)
     }
 
     //clean up the words that were seperated out
-    for (int i = 0; i < vReturn.size(); ++i)
+    //for (int i = 0; i < vReturn.size(); ++i)
     {
         //vReturn[i] = cleanSpaces(vReturn[i]);
-        std::cout<<"vReturn: "<<vReturn[i]<<endl;
+        //std::cout<<"vReturn: "<<vReturn[i]<<endl;
     }
 
     return vReturn;
