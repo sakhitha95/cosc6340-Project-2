@@ -166,3 +166,57 @@ vector<tuple<int, string> > Table::getRow(int iIndex)
   return vReturn;
 }
 
+    //Display function
+    void Table::displayTable();
+
+    //Setters
+    void Table::setPrimaryKey(string sKeyIn)
+    {
+        for (int i = 0; i < vColumnNames.size(); ++i)
+        {
+            //Execute if the column name is equal to the parameter name
+            if (get < 1 > (vColumnNames[i]) == sKeyIn)
+            {
+                //set the boolean value in the column tuple to true, to show it is key
+                get < 2 > (vColumnNames[i]) = true;
+                return;
+            }
+        }
+
+        printf("| Primary Key was not set\n");
+    }
+
+    //add a column to the class vector
+    void Table::addColumn(tuple<int, string, bool, string, int> s)
+    {
+        vColumnNames.push_back(s);
+    }
+    void Table::addSpecs(tuple<int, int, int > d){
+        vSpecs = d;
+    }
+
+    //add a row to the row vector
+    void Table::addRow(vector<tuple<int, string> > v)
+    {
+        ofstream outfile;
+        string fileName= sTableName +".tbl";
+        outfile.open(fileName, ios::binary | ios::out);
+
+        for (int i = 0; i < vColumnNames.size()-1; ++i)
+        {
+            //string sName = get < 0 > (vColumnNames[i]);
+            //string sType = get < 1 > (vColumnNames[i]);
+            int bSize= get < 4 > (vColumnNames[i]);
+            outfile.write((char*)&(get<1>(v[i])), bSize);
+        }
+
+        outfile.close();
+
+    }
+
+    //Getters
+    string Table::getTableName()
+    {
+        return sTableName;
+    }
+
