@@ -115,7 +115,7 @@ bool Parser::writeToFile(string sFilename)
   fstream outputFile;
   //open the file and write the contents of the class vector in there
   //outputFile.open(sFilename + ".db");
-  for (int i = 0; i < vValuesRead.size(); ++i)
+  for (size_t i = 0; i < vValuesRead.size(); ++i)
   {
     outputFile << vValuesRead[i] << '\n';
   }
@@ -129,7 +129,7 @@ bool Parser::writeToFile(string sFilename)
 string Parser::cleanSpaces(string sLineIn)
 {
   string sOut = "";
-  for (int i = 0; i < sLineIn.length(); ++i)
+  for (size_t i = 0; i < sLineIn.length(); ++i)
   {
     //Append the value from the string into the return string, if its alpha
     if (isalnum(sLineIn[i]) || sLineIn[i] == '_' || sLineIn[i] == '/' ||
@@ -148,7 +148,7 @@ string Parser::cleanSpaces(string sLineIn)
 string Parser::removeSpaces(string sLineIn)
 {
   string sOut = "";
-  for (int i = 0; i < sLineIn.length(); ++i)
+  for (size_t i = 0; i < sLineIn.length(); ++i)
   {
     //Apend any values that are not spaces
     if (sLineIn[i] != ' ')
@@ -235,9 +235,7 @@ bool Parser::findCreateTable(string sLineIn)
             //reposition the position values
             iPosStart = iPosEnd + 1;
             iPosEnd = sLineIn.find("PRIMARY KEY", iPosStart + 1);
-            int primaryKeyExtra = 2;
             if (iPosEnd == string::npos) {
-                int primaryKeyExtra = 0;
                 iPosEnd = sLineIn.find("PRIMARY KEY", iPosStart + 1);
             }
 
@@ -339,9 +337,9 @@ bool Parser::findSelect(string sLineIn)
 	                string endOfQuery = origQuery.substr(iPosStart,
 	                                                    iPosEnd1 - iPosStart);
 	                
-	                /*iPosJoin = tableName.find("JOIN", iPosStart);
+	                size_t iPosJoin = endOfQuery.find("JOIN", iPosStart);
 	             	if (iPosJoin != string::npos) {
-	             		iPosStart = iPosWhere + 4;
+	             		iPosStart = iPosJoin + 4;
 	             	}//*/
 	             	
 	                size_t iPosWhere = origQuery.find("WHERE", iPosStart);
@@ -557,7 +555,7 @@ bool Parser::checkParenthesis(string sLineIn)
 {
   int iBalance = 0;
 
-  for (int i = 0; i < sLineIn.length(); ++i)
+  for (size_t i = 0; i < sLineIn.length(); ++i)
   {
     if (sLineIn[i] == '(')
     {
@@ -646,7 +644,7 @@ vector<string> Parser::createVector(string sLineIn)
     int iAmountOfCommas = 0;
 
     //Check to see how many commas are in the string
-    for (int i = 0; i < sLineIn.length(); ++i)
+    for (size_t i = 0; i < sLineIn.length(); ++i)
     {
         //Execute if the comma is found and increment the counter
         if (sLineIn[i] == ',')
@@ -655,7 +653,7 @@ vector<string> Parser::createVector(string sLineIn)
         }
     }
 
-    //Loop to parser out the comma seperated values
+    //Loop to parser out the comma separated values
     while (iCount <= iAmountOfCommas)
     {
         iPosEnd = sLineIn.find(",", iPosStart + 1);
@@ -664,7 +662,7 @@ vector<string> Parser::createVector(string sLineIn)
         iCount++;
     }
 
-    //clean up the words that were seperated out
+    //clean up the words that were separated out
     //for (int i = 0; i < vReturn.size(); ++i)
     {
         //vReturn[i] = cleanSpaces(vReturn[i]);
@@ -682,7 +680,7 @@ vector<tuple<int, string> > Parser::createRowVector(string sLineIn)
     vector < tuple<int, string> > vRowOut;
     vector < string > vRowAttributes = createVector(sLineIn);
 
-    for (int i = 0; i < vRowAttributes.size(); i++)
+    for (size_t i = 0; i < vRowAttributes.size(); i++)
     {
         int iColIndex = i;
         string sName = vRowAttributes[i];
@@ -700,7 +698,7 @@ vector<tuple<string, string, int, bool> > Parser::createColVector(string sLineIn
     vector < tuple<string, string, int, bool> > vColVectorOut;
     vector < string > vCol = createVector(sLineIn);
 
-    for (int i = 0; i < vCol.size(); i++)
+    for (size_t i = 0; i < vCol.size(); i++)
     {
         string sType, sName;
         int length = 1;

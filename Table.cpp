@@ -38,7 +38,7 @@ void Table::displayTable()
   // Print the lines of the table for a pretty output
   cout << "\n ";
 
-  for (int i = 0; i < vColumnNames.size(); ++i)
+  for (size_t i = 0; i < vColumnNames.size(); ++i)
   {
     cout << "-----------------------";
   }
@@ -46,14 +46,14 @@ void Table::displayTable()
 
   cout << " | " << sTableName << "\n ";
 
-  for (int i = 0; i < vColumnNames.size(); ++i)
+  for (size_t i = 0; i < vColumnNames.size(); ++i)
   {
     cout << "+----------------------";
   }
   cout << "\n";
 
   // Determine how far to space the column bars
-  for (int i = 0; i < vColumnNames.size(); ++i)
+  for (size_t i = 0; i < vColumnNames.size(); ++i)
   {
     //get the column values for printing
     string sColName = get < 1 > (vColumnNames[i]);
@@ -74,16 +74,16 @@ void Table::displayTable()
   cout << "\n ";
 
   // Print the row dividers for the number of columns
-  for (int i = 0; i < vColumnNames.size(); ++i)
+  for (size_t i = 0; i < vColumnNames.size(); ++i)
   {
     cout << "+----------------------";
   }
   cout << "\n";
 
-//  for (int i = 0; i < vRows.size(); ++i)
+//  for (size_t i = 0; i < vRows.size(); ++i)
 //  {
 //
-//    for (int a = 0; a < vColumnNames.size(); ++a)
+//    for (size_t a = 0; a < vColumnNames.size(); ++a)
 //    {
 //      for (vector<tuple<int, string> >::iterator current =
 //              vRows[i].begin(); current != vRows[i].end(); ++current)
@@ -120,7 +120,7 @@ void Table::displayTable()
 tuple<int, string, bool, string> Table::getColumnIndex(
         string sColumnNameIn)
 {
-  for (int i = 0; i < vColumnNames.size(); ++i)
+  for (size_t i = 0; i < vColumnNames.size(); ++i)
   {
     //Execute if the column was found
     if (get < 1 > (vColumnNames[i]) == sColumnNameIn)
@@ -154,7 +154,7 @@ vector<tuple<int, string> > Table::getRow(int iIndex)
   if(iIndex*get<0>(vSpecs)< get<1>(vSpecs) and iIndex<get<2>(vSpecs)){
 
     infile.seekg(iIndex*get<0>(vSpecs), ios::beg);
-    for (int i = 0; i< vColumnNames.size()-1; ++i){
+    for (size_t i = 0; i< vColumnNames.size()-1; ++i){
       string sName = get < 1 > (vColumnNames[i]);
       int bSize= get < 4 > (vColumnNames[i]);
       infile.read((char *)&sName, bSize);
@@ -172,7 +172,7 @@ vector<tuple<int, string> > Table::getRow(int iIndex)
     //Setters
     void Table::setPrimaryKey(string sKeyIn)
     {
-        for (int i = 0; i < vColumnNames.size(); ++i)
+        for (size_t i = 0; i < vColumnNames.size(); ++i)
         {
             //Execute if the column name is equal to the parameter name
             if (get < 1 > (vColumnNames[i]) == sKeyIn)
@@ -202,7 +202,7 @@ vector<tuple<int, string> > Table::getRow(int iIndex)
         string fileName= sTableName +".tbl";
         outfile.open(fileName, ios::binary | ios::out);
 
-        for (int i = 0; i < vColumnNames.size()-1; ++i)
+        for (size_t i = 0; i < vColumnNames.size()-1; ++i)
         {
             //string sName = get < 0 > (vColumnNames[i]);
             //string sType = get < 1 > (vColumnNames[i]);

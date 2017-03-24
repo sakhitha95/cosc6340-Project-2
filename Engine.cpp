@@ -31,7 +31,7 @@ void Engine::createTable(string sTableNameIn,
 
     Table t(sTableNameIn);
 
-    for (int i = 0; i < vColumnNamesIn.size()-1; ++i)
+    for (size_t i = 0; i < vColumnNamesIn.size()-1; ++i)
     {
         string sName = get < 0 > (vColumnNamesIn[i]);
         string sType = get < 1 > (vColumnNamesIn[i]);
@@ -43,7 +43,7 @@ void Engine::createTable(string sTableNameIn,
     
     //t.addSpecs(specs);
 
-    for (int i = 0; i < vKeys.size(); ++i)
+    for (size_t i = 0; i < vKeys.size(); ++i)
     {
         t.setPrimaryKey(vKeys[i]);
     }
@@ -83,7 +83,7 @@ void Engine::addRow(string sTableNameIn, vector<tuple<int, string> > vRowIn)
 	int x = Engine::convertCharToInt(xC);
 	cout << "x num " << x << endl;
 
-    for (int i = 0; i < vTableList.size(); ++i)
+    for (size_t i = 0; i < vTableList.size(); ++i)
     {
         if (vTableList[i].getTableName() == sTableNameIn)
         {
@@ -97,7 +97,7 @@ void Engine::addRow(string sTableNameIn, vector<tuple<int, string> > vRowIn)
    ****************************************************************************/
 void Engine::displayTable(string sTableNameIn)
 {
-    for (int i = 0; i < vTableList.size(); ++i)
+    for (size_t i = 0; i < vTableList.size(); ++i)
     {
         if (vTableList[i].getTableName() == sTableNameIn)
         {
@@ -114,7 +114,7 @@ void Engine::displayTable(string sTableNameIn)
 void Engine::displayTableSchemas()
 {
 	//cout << "Grab data from catalog" << endl;
-	for (int i = 0; i < vTableList.size(); ++i)
+	for (size_t i = 0; i < vTableList.size(); ++i)
     {
         //if (vTableList[i].getTableName() == sTableNameIn)
         {
@@ -127,7 +127,7 @@ void Engine::displayTableSchemas()
 void Engine::writeStringToFile(string val, ofstream& out)
 {
 	char* valOut = new char[val.length()+1];
-	for (int i = 0; i < val.length(); i++) {
+	for (size_t i = 0; i < val.length(); i++) {
 		valOut[i] = val[i];
 		//cout << "valOut[i] " << valOut[i] << endl;
 	}
@@ -140,7 +140,7 @@ void Engine::writeIntToFile(int num, ofstream& out)
 {
 	string numStr = to_string(num);
 	char* numC = new char[numStr.length()+1];
-	for (int i = 0; i < numStr.length(); i++) {
+	for (size_t i = 0; i < numStr.length(); i++) {
 		numC[i] = numStr[i];
 		//cout << "numC[i] " << numC[i] << endl;
 	}
@@ -152,7 +152,7 @@ void Engine::writeIntToFile(int num, ofstream& out)
 int Engine::convertCharToInt(char* val)
 {
 	string xStr;
-	for (int i = 0; i < strlen(val); i++) {
+	for (size_t i = 0; i < strlen(val); i++) {
 		xStr[i] = val[i];
 		//cout << "xStr[i] " << xStr[i] << endl;
 	}
