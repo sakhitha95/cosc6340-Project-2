@@ -190,10 +190,10 @@ int Parser::parse(string sLineIn)
     } else if (findQuit(sLineIn)) {
         cout << "Finished" << endl;
         return 0;
-    } else if (findShowTable(sLineIn)) { // needs to go before findShowTable
-        cout << "Show table" << endl;
     } else if (findShowTables(sLineIn)) {
         cout << "Show tables" << endl;
+    } else if (findShowTable(sLineIn)) { // needs to go before findShowTable
+        cout << "Show table" << endl;
     } else {
         printf("ERROR: no match for the query could be found\n");
     }
@@ -520,6 +520,7 @@ bool Parser::findShowTables(string sLineIn)
   if (iPosStart != string::npos)
   {
 	cout << "found show table" << endl;
+	e.displayTableSchemas();
 
     return true;
   }

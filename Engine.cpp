@@ -108,6 +108,22 @@ void Engine::displayTable(string sTableNameIn)
     printf("| The table was not found\n");
 }
 
+/*****************************************************************************
+   Print out all table schemas
+   ****************************************************************************/
+void Engine::displayTableSchemas()
+{
+	//cout << "Grab data from catalog" << endl;
+	for (int i = 0; i < vTableList.size(); ++i)
+    {
+        //if (vTableList[i].getTableName() == sTableNameIn)
+        {
+            vTableList[i].displayTable();
+            //return;
+        }
+    }
+}
+
 void Engine::writeStringToFile(string val, ofstream& out)
 {
 	char* valOut = new char[val.length()+1];
