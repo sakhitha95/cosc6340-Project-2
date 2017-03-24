@@ -25,7 +25,7 @@ vector<Table> vTableList;
 
 void Engine::createTable(string sTableNameIn,
                          vector<tuple<string, string, int, bool> > vColumnNamesIn,
-                         /*tuple<int, int, int> specs,*/
+                         /*std::tuple<int, int, int> specs,*/
                          vector<string> vKeys)
 {
 
@@ -51,6 +51,46 @@ void Engine::createTable(string sTableNameIn,
     //push table into the table list
 
     vTableList.push_back(t);
+}
+
+/****************************************************************************
+   Adds a row to the specified table
+   ****************************************************************************/
+void Engine::addRow(string sTableNameIn, vector<tuple<int, string> > vRowIn)
+{
+	cout << "addRow" << endl;
+	ofstream out;
+	out.open("test.tbl", ios::binary | ios::out);
+	
+	int num = 1453659877;
+	string hiStr = "hi";
+	
+	Engine::writeStringToFile(hiStr, out);
+	Engine::writeIntToFile(num, out);
+	out.close();
+	
+
+	ifstream in;
+	char* hi = new char[hiStr.length()+1];
+	char* xC = new char[to_string(num).length()+1];
+	
+	in.open("test.tbl", ios::binary | ios::in);
+	in.read(hi, sizeof(char)*(hiStr.length()+1));
+	in.read(xC, sizeof(char)*(to_string(num).length()+1));
+	cout << "back in " << hi << endl;
+	cout << "xC " << xC << endl;
+
+	int x = Engine::convertCharToInt(xC);
+	cout << "x num " << x << endl;
+
+    for (int i = 0; i < vTableList.size(); ++i)
+    {
+        if (vTableList[i].getTableName() == sTableNameIn)
+        {
+            //vTableList[i].addRow(vRowIn);
+            return;
+        }
+    }
 }
 /*****************************************************************************
    Print out the table with the given name
@@ -103,42 +143,3 @@ int Engine::convertCharToInt(char* val)
 	return stoi(xStr);
 }
 
-/****************************************************************************
-   Adds a row to the specified table
-   ****************************************************************************/
-void Engine::addRow(string sTableNameIn, vector<tuple<int, string> > vRowIn)
-{
-	cout << "addRow" << endl;
-	ofstream out;
-	out.open("test.tbl", ios::binary | ios::out);
-	
-	int num = 1453659877;
-	string hiStr = "hi";
-	
-	Engine::writeStringToFile(hiStr, out);
-	Engine::writeIntToFile(num, out);
-	out.close();
-	
-
-	ifstream in;
-	char* hi = new char[hiStr.length()+1];
-	char* xC = new char[to_string(num).length()+1];
-	
-	in.open("test.tbl", ios::binary | ios::in);
-	in.read(hi, sizeof(char)*(hiStr.length()+1));
-	in.read(xC, sizeof(char)*(to_string(num).length()+1));
-	cout << "back in " << hi << endl;
-	cout << "xC " << xC << endl;
-
-	int x = Engine::convertCharToInt(xC);
-	cout << "x num " << x << endl;
-
-    for (int i = 0; i < vTableList.size(); ++i)
-    {
-        if (vTableList[i].getTableName() == sTableNameIn)
-        {
-            //vTableList[i].addRow(vRowIn);
-            return;
-        }
-    }
-}
