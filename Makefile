@@ -3,10 +3,10 @@ make: clean dbms
 dbms: dbms.o Engine.o Parser.o Table.o
 	g++ -std=c++11 -o dbms dbms.o Engine.o Parser.o Table.o
 
-dbms.o: dbms.cpp Engine.h Parser.h Table.h
+dbms.o: dbms.cpp Engine.h Catalogtable.h Parser.h Table.h
 	g++ -Wall -std=c++11 -c dbms.cpp
 
-Engine.o: Engine.h
+Engine.o: Engine.h Catalogtable.h
 	g++ -Wall -std=c++11 -c Engine.cpp
 
 Parser.o: Parser.h

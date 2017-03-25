@@ -1,0 +1,24 @@
+tablename=T
+column=C1 :int(1), C2 VAR:string(5), C3 :int(1)
+primarykey=C1
+recordsize=12
+totalsize0
+records=0
+tablename=T
+column=C1 :int(1), C2 VAR:string(5), C3 :int(1)
+primarykey=C1
+recordsize=12
+totalsize0
+records=0
+tablename=T
+column=C1 :int(1), C2 VAR:string(5), C3 :int(1)
+primarykey=C1
+recordsize=12
+totalsize0
+records=0
+tablename=T
+column=C1 :int(1), C2 VAR:string(5), C3 :int(1)
+primarykey=C1
+recordsize=12
+totalsize0
+records=0

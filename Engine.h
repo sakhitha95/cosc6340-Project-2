@@ -46,6 +46,8 @@ class Engine {
 	    void addRow(string sTableNameIn, vector<tuple<int, string> > vRowIn);
 	    
 	    static void writeStringToFile(string val, ofstream& out);
+     static void writetofile();
+     static void read(string);
 	    static void writeIntToFile(int val, ofstream& out);
 	    static int convertCharToInt(char* val);
 
