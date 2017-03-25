@@ -15,7 +15,6 @@
  *******************************************************************************/
 
 #include "Engine.h"
-#include "Catalog.h"
 
 /*******************************************************************************
  This function will take in a vector of column names and trailing primary keys,
