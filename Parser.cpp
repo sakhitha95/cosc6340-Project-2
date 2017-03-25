@@ -356,6 +356,7 @@ bool Parser::findSelect(string sLineIn)
 	                cout << "tableName12 " << table << endl;
 	                
 	                //iPosStart = iPosEnd1
+	                e.executeSelect();
 	                return true;
                 } else {
                     iPosEnd1 = sLineIn.find(")", iPosStart);

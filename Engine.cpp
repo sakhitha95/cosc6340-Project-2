@@ -53,6 +53,11 @@ void Engine::createTable(string sTableNameIn,
     vTableList.push_back(t);
 }
 
+void Engine::executeSelect() // add the parameters you need
+{
+	// put t.addRow() here
+}
+
 /****************************************************************************
    Adds a row to the specified table
    ****************************************************************************/
