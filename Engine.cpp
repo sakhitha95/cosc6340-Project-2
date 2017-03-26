@@ -172,7 +172,9 @@ void Engine::writetofile()
 {
     
     ofstream outfile;
-    outfile.open("cat11.txt",ios::out|ios::app);
+    outfile.open("cat12.txt",ios::out|ios::app);
+	ifstream infile;
+	infile.open("cat11.txt",ios::in);
     for(size_t i=0; i<cataloglist.size();++i){
         //std::string name=cataloglist[i].getTableName();
         outfile<<"tablename="<<cataloglist[i].getTableName()<<'\n';
@@ -206,8 +208,88 @@ void Engine::writetofile()
         nrecords=cataloglist[i].getNrecords();
         outfile<<"\n"<<"records="<<nrecords<<"\n";
     }
-    
+	int present=0;
+ string line;
+ int count=0;
+        while(getline(infile,line)){
+			
+            std::size_t f;
+            if((f=line.find("tablename"))!=std::string::npos)
+            {
+				
+				for(size_t i=0;i<cataloglist.size();++i)
+				{
+        std::size_t f1;
+                if((f1=line.find("=",f+8))!=std::string::npos){
+                    //	cout<<f1;
+                    string tname=line.substr(f1+1,string::npos);
+                    				if(cataloglist[i].getTablename()==tname)
+				            present=1;
+                }
+
+				}	
+			if(present!=1)
+			{
+				outfile<<line;
+				count=1;
+			}
+            }
+            else if(count==1)
+            {
+				if(present!=1)
+                {
+                count=2;
+                outfile<<line;
+                }
+			}
+            
+            
+            else if(count==2){
+				if(present!=1){
+                cout<<line;
+                count=3;
+				outfile<<line;
+				}
+            }
+            else if(count==3){
+				if(present!=1){
+					
+                cout<<"Asdfas";
+                cout<<line;
+                count=4;
+				outfile<<line;
+
+            }
+			}
+            else if(count==4){
+				if(present!=1){
+                
+                cout<<line;
+                count=5;
+				outfile<<line;
+
+                }
+            }
+            else if(count==5){
+                if(present!=1){
+                cout<<line;
+                count=0;
+				outfile<<line;
+				present=0;
+                }
+            }
+            
+            
+            
+            line.clear();
+            
+		}
+	
+	
+	infile.close();
     outfile.close();
+	remove( "cat11.txt" );
+	rename( "cat12.txt" , "cat11.txt" );
     
 }
 
