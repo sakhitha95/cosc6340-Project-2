@@ -133,7 +133,7 @@ string Parser::cleanSpaces(string sLineIn)
   {
     //Append the value from the string into the return string, if its alpha
     if (isalnum(sLineIn[i]) || sLineIn[i] == '_' || sLineIn[i] == '/' ||
-    	sLineIn[i] == '*')
+    	sLineIn[i] == '*' || sLineIn[i] == '=' || sLineIn[i] == '.')
     {
       sOut += sLineIn[i];
     }
@@ -295,8 +295,9 @@ bool Parser::findSelect(string sLineIn)
                                              iPosEnd1 - iPosStart);
             cout << "colNames " << colNames << endl;
 
-            iPosStart = iPosEnd1 + 4;
+            iPosStart = iPosEnd1 + 4 + 1/*for the space*/;
 
+			// is it nested?
             size_t nestedSelectPos = sLineIn.find("(", iPosStart);
             if (nestedSelectPos != string::npos) {
                 nestedLevel++;
@@ -333,30 +334,56 @@ bool Parser::findSelect(string sLineIn)
                 }
             } else {
                 if (nestedLevel == 0) {
-                    iPosEnd1 = sLineIn.find(";", iPosStart);
-	                string endOfQuery = origQuery.substr(iPosStart,
-	                                                    iPosEnd1 - iPosStart);
-	                
-	                size_t iPosJoin = endOfQuery.find("JOIN", iPosStart);
-	             	if (iPosJoin != string::npos) {
-	             		iPosStart = iPosJoin + 4;
-	             	}//*/
+                    
+                    size_t iPosSemiColon = sLineIn.find(";", iPosStart);
 	             	
-	                size_t iPosWhere = origQuery.find("WHERE", iPosStart);
-	                cout << "after poswhere " << iPosWhere << endl;
-	             	if (iPosWhere != string::npos) {
-	             		size_t iPosWhereFilter = iPosWhere + 5;
-		                string whereFilter = origQuery.substr(iPosWhereFilter,
-		                                            iPosEnd1 - iPosWhereFilter);
-		                cout << "where " << whereFilter << endl;
+	             	size_t iPosTableSpace = sLineIn.find(" ", iPosStart);
+	             	string tableName = "";
+	             	if (iPosTableSpace != string::npos) {
+		             	tableName = sLineIn.substr(iPosStart,
+	             									iPosTableSpace - iPosStart);
+	                	cout << "space tableName " << endl;
+	          		} else {
+		             	tableName = sLineIn.substr(iPosStart,
+	             									iPosSemiColon - iPosStart);
+	                	cout << "semic tableName " << endl;
+	          		}
+	                cout << "tableName " << tableName << endl;
+	                
+	                size_t iPosJoin = sLineIn.find("JOIN", iPosStart);
+	                string joinTable = "";
+	                string joinFilter = "";
+	             	if (iPosJoin != string::npos) {
+	             		iPosStart = iPosJoin + 4 + 1/*space after JOIN*/;
+		                size_t iPosSpace = sLineIn.find(" ", iPosStart);
+		                joinTable = cleanSpaces(sLineIn.substr(iPosStart, 
+		                							iPosSpace - iPosStart));
+		                cout << "joinTable " << joinTable << endl;
+		                
+		                size_t iPosOn = sLineIn.find("ON", iPosStart);
+	             		if (iPosOn != string::npos) {
+			                size_t iPosEqual = sLineIn.find("=", iPosOn) + 1;
+			                size_t iPosTableDotCol = sLineIn.find(".", iPosEqual);
+			                size_t iPosJoinEnd = sLineIn.find(" ", iPosTableDotCol);
+	             			iPosOn += 2;
+	             			joinFilter = cleanSpaces(sLineIn.substr(iPosOn,
+	             											iPosJoinEnd - iPosOn));
+	             			cout << "joinFilter " << joinFilter << endl;
+	             		}
 	             	}
 	             	
-	             	string table = origQuery.substr(iPosStart,
-	             									iPosWhere - iPosStart);
-	                cout << "tableName12 " << table << endl;
+	                size_t iPosWhere = sLineIn.find("WHERE", iPosStart);
+	                //cout << "after poswhere " << iPosWhere << endl;
+	                string whereFilter = "";
+	             	if (iPosWhere != string::npos) {
+	             		size_t iPosWhereFilter = iPosWhere + 5;
+		                string whereFilter = cleanSpaces(sLineIn.substr(iPosWhereFilter,
+		                                            iPosSemiColon - iPosWhereFilter));
+		                cout << "where " << whereFilter << endl;
+	             	}
 	                
-	                //iPosStart = iPosEnd1
-	                e.executeSelect();
+	                e.executeSelect(tableName, colNames, whereFilter,
+	                				joinTable, joinFilter);
 	                return true;
                 } else {
                     iPosEnd1 = sLineIn.find(")", iPosStart);

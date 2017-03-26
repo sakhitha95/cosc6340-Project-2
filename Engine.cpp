@@ -53,8 +53,14 @@ void Engine::createTable(string sTableNameIn,
     vTableList.push_back(t);
 }
 
-void Engine::executeSelect() // add the parameters you need
+// If you don't understand these comments, run this query:
+// ./dbms "select a,b,k from t1 join t2 on t1.k = t2.kb where b=1;"
+void Engine::executeSelect(string tableName, string colNames/* ',' delimited */,
+							string whereFilter/* '=' delimited */,
+	                		string joinTable,
+	                		string joinFilter/* '=' delimited */)
 {
+	// parameters are empty strings if not found. Only tableName and colNames should exist. colNames can be just '*'.
 	// put t.addRow() here
 }
 
