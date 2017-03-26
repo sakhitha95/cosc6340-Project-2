@@ -42,7 +42,8 @@ class Engine {
 	                     vector<string> vKeys);
 	    void displayTable(string sTableNameIn);
 	    void displayTableSchemas();
-	    void executeSelect();
+	    void executeSelect(string tableName, string colNames, string whereFilter,
+	                				string joinTable, string joinFilter);
 	    void addRow(string sTableNameIn, vector<tuple<int, string> > vRowIn);
 	    
 	    static void writeStringToFile(string val, ofstream& out);
