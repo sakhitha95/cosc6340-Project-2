@@ -112,10 +112,10 @@ bool Parser::readFromFile(string sFileName)
  *******************************************************************************/
 bool Parser::writeToFile(string sFilename)
 {
-  std::fstream outputFile;
+  fstream outputFile;
   //open the file and write the contents of the class vector in there
   //outputFile.open(sFilename + ".db");
-  for (int i = 0; i < vValuesRead.size(); ++i)
+  for (size_t i = 0; i < vValuesRead.size(); ++i)
   {
     outputFile << vValuesRead[i] << '\n';
   }
@@ -129,11 +129,11 @@ bool Parser::writeToFile(string sFilename)
 string Parser::cleanSpaces(string sLineIn)
 {
   string sOut = "";
-  for (int i = 0; i < sLineIn.length(); ++i)
+  for (size_t i = 0; i < sLineIn.length(); ++i)
   {
     //Append the value from the string into the return string, if its alpha
     if (isalnum(sLineIn[i]) || sLineIn[i] == '_' || sLineIn[i] == '/' ||
-    	sLineIn[i] == '*')
+    	sLineIn[i] == '*' || sLineIn[i] == '=' || sLineIn[i] == '.')
     {
       sOut += sLineIn[i];
     }
@@ -148,7 +148,7 @@ string Parser::cleanSpaces(string sLineIn)
 string Parser::removeSpaces(string sLineIn)
 {
   string sOut = "";
-  for (int i = 0; i < sLineIn.length(); ++i)
+  for (size_t i = 0; i < sLineIn.length(); ++i)
   {
     //Apend any values that are not spaces
     if (sLineIn[i] != ' ')
@@ -173,30 +173,41 @@ int Parser::parse(string sLineIn)
     //printf("\n%s\n", sLineIn.c_str());
     cout << sLineIn << endl;
     origQuery = sLineIn;
-    if (checkParenthesis(sLineIn))
-    {
-        cout << "parenthesis ok" << endl;
-        if (findCreateTable(sLineIn)) {
-            printf("| CREATE TABLE was found in this line, executed.\n");
-        } else if (findInsertInto(sLineIn)) {
-            cout << "Insert Into found" << endl;
-        } else if (findSelect(sLineIn)) {
-            cout << "Select found" << endl;
-        } else if (findQuit(sLineIn)) {
-            cout << "Finished;" << endl;
-            return 0;
-        } else if (findShowTable(sLineIn)) { // needs to go before findShowTable
-            cout << "Show table" << endl;
-        } else if (findShowTables(sLineIn)) {
-            cout << "Show tables" << endl;
-        } else {
-            printf("ERROR: none of the lines executed\n");
-        }
-  } else {
-  	printf("ERROR: the line is incorrect\n");
-  }
+    if (!checkParenthesis(sLineIn)) {
+  		printf("ERROR: the parentheses do not match\n");
+  	}
+    if (!semicolonExists(sLineIn)) {
+  		printf("ERROR: there is no semicolon\n");
+  	}
+  	
+    cout << "parenthesis ok" << endl;
+    if (findCreateTable(sLineIn)) {
+        printf("CREATE TABLE was found in this line, executed.\n");
+    } else if (findInsertInto(sLineIn)) {
+        cout << "Insert Into found" << endl;
+    } else if (findSelect(sLineIn)) {
+        cout << "Select found" << endl;
+    } else if (findQuit(sLineIn)) {
+        cout << "Finished" << endl;
+        return 0;
+    } else if (findShowTables(sLineIn)) {
+        cout << "Show tables" << endl;
+    } else if (findShowTable(sLineIn)) { // needs to go before findShowTable
+        cout << "Show table" << endl;
+    } else {
+        printf("ERROR: no match for the query could be found\n");
+    }
 
 	return 1;
+}
+
+bool Parser::semicolonExists(string sLineIn) 
+{
+	size_t semicolon = sLineIn.find(";");
+	if (semicolon == string::npos) {
+		return false;
+	}
+	return true;
 }
 
 /*******************************************************************************
@@ -208,12 +219,12 @@ bool Parser::findCreateTable(string sLineIn)
     size_t iPosStart = sLineIn.find("CREATE TABLE");
 
     //Execute if create table was found in the string
-    if (iPosStart != std::string::npos)
+    if (iPosStart != string::npos)
     {
         size_t iPosEnd = sLineIn.find("(", iPosStart + 1);
 
         //execute if '(' was found in the string
-        if (iPosEnd != std::string::npos)
+        if (iPosEnd != string::npos)
         {
             //get the table name
             string sTableName = sLineIn.substr(iPosStart + CREATE_TABLE_SIZE,
@@ -224,14 +235,12 @@ bool Parser::findCreateTable(string sLineIn)
             //reposition the position values
             iPosStart = iPosEnd + 1;
             iPosEnd = sLineIn.find("PRIMARY KEY", iPosStart + 1);
-            int primaryKeyExtra = 2;
             if (iPosEnd == string::npos) {
-                int primaryKeyExtra = 0;
                 iPosEnd = sLineIn.find("PRIMARY KEY", iPosStart + 1);
             }
 
             //Execute if primary key was found in string
-            if (iPosEnd != std::string::npos)
+            if (iPosEnd != string::npos)
             {
                 //get the column names
                 string sColumns = sLineIn.substr(iPosStart,
@@ -245,7 +254,7 @@ bool Parser::findCreateTable(string sLineIn)
                 iPosEnd = sLineIn.find(")", iPosStart);
 
                 //execute if ')' was found in the string
-                if (iPosEnd != std::string::npos)
+                if (iPosEnd != string::npos)
                 {
                     //get the primary keys
                     string sPrimaryKeys = sLineIn.substr(iPosStart,
@@ -254,11 +263,14 @@ bool Parser::findCreateTable(string sLineIn)
                     cout << "primary keys " << sPrimaryKeys << endl;
 
                     //remove the spaces from the name of the table
-                    sTableName = cleanSpaces(sTableName);
+                    sTableName = Parser::cleanSpaces(sTableName);
 
                     //call the create table function after the helper functions
                     e.createTable(sTableName, createColVector(sColumns),
                       	createVector(sPrimaryKeys));
+                       e.writetofile();
+                       e.read(sTableName);
+                       
 
                     return true;
                 }
@@ -273,23 +285,24 @@ bool Parser::findSelect(string sLineIn)
 {
     size_t iPosStart = sLineIn.find("SELECT");
 
-    if (iPosStart != std::string::npos)
+    if (iPosStart != string::npos)
     {
         cout << "Select found" << endl;
         iPosStart += 6;
         size_t iPosEnd1 = sLineIn.find("FROM", iPosStart);
 
-        if (iPosEnd1 != std::string::npos)
+        if (iPosEnd1 != string::npos)
         {
             cout << "From found" << endl;
             string colNames = sLineIn.substr(iPosStart,
                                              iPosEnd1 - iPosStart);
             cout << "colNames " << colNames << endl;
 
-            iPosStart = iPosEnd1 + 4;
+            iPosStart = iPosEnd1 + 4 + 1/*for the space*/;
 
+			// is it nested?
             size_t nestedSelectPos = sLineIn.find("(", iPosStart);
-            if (nestedSelectPos != std::string::npos) {
+            if (nestedSelectPos != string::npos) {
                 nestedLevel++;
                 cout << "detected nested query" << endl;
                 if (nestedLevel > 3) {
@@ -308,18 +321,15 @@ bool Parser::findSelect(string sLineIn)
                 iPosStart = origQuery.find(")", returningNestedLevel) + 1;
                 iPosEnd1 = origQuery.find(")", iPosStart);
 
-                if (iPosEnd1 == std::string::npos) {
+                if (iPosEnd1 == string::npos) {
                     iPosEnd1 = origQuery.find(";", iPosStart);
-                } else {
-                    cout << "ERROR: semicolon required" << endl;
-                    //return false;
                 }
 
-                if (iPosEnd1 != std::string::npos)
+                if (iPosEnd1 != string::npos)
                 {
                     string tableName = origQuery.substr(iPosStart,
                                                         iPosEnd1 - iPosStart);
-                    tableName = cleanSpaces(tableName);
+                    tableName = Parser::cleanSpaces(tableName);
                     returningNestedLevel = iPosEnd1 - 1;
                     cout << "tableName " << tableName << endl;
                     cout << "colNames " << colNames << endl;
@@ -327,18 +337,61 @@ bool Parser::findSelect(string sLineIn)
                 }
             } else {
                 if (nestedLevel == 0) {
-                    iPosEnd1 = sLineIn.find(";", iPosStart);
-                    if (iPosEnd1 != std::string::npos)
-                    {
-                        cout << "found semicolon" << endl;
-                    } else {
-                        cout << "ERROR: semicolon required" << endl;
-                        return false;
-                    }
+                    
+                    size_t iPosSemiColon = sLineIn.find(";", iPosStart);
+	             	
+	             	size_t iPosTableSpace = sLineIn.find(" ", iPosStart);
+	             	string tableName = "";
+	             	if (iPosTableSpace != string::npos) {
+		             	tableName = sLineIn.substr(iPosStart,
+	             									iPosTableSpace - iPosStart);
+	                	cout << "space tableName " << endl;
+	          		} else {
+		             	tableName = sLineIn.substr(iPosStart,
+	             									iPosSemiColon - iPosStart);
+	                	cout << "semic tableName " << endl;
+	          		}
+	                cout << "tableName " << tableName << endl;
+	                
+	                size_t iPosJoin = sLineIn.find("JOIN", iPosStart);
+	                string joinTable = "";
+	                string joinFilter = "";
+	             	if (iPosJoin != string::npos) {
+	             		iPosStart = iPosJoin + 4 + 1/*space after JOIN*/;
+		                size_t iPosSpace = sLineIn.find(" ", iPosStart);
+		                joinTable = cleanSpaces(sLineIn.substr(iPosStart, 
+		                							iPosSpace - iPosStart));
+		                cout << "joinTable " << joinTable << endl;
+		                
+		                size_t iPosOn = sLineIn.find("ON", iPosStart);
+	             		if (iPosOn != string::npos) {
+			                size_t iPosEqual = sLineIn.find("=", iPosOn) + 1;
+			                size_t iPosTableDotCol = sLineIn.find(".", iPosEqual);
+			                size_t iPosJoinEnd = sLineIn.find(" ", iPosTableDotCol);
+	             			iPosOn += 2;
+	             			joinFilter = cleanSpaces(sLineIn.substr(iPosOn,
+	             											iPosJoinEnd - iPosOn));
+	             			cout << "joinFilter " << joinFilter << endl;
+	             		}
+	             	}
+	             	
+	                size_t iPosWhere = sLineIn.find("WHERE", iPosStart);
+	                //cout << "after poswhere " << iPosWhere << endl;
+	                string whereFilter = "";
+	             	if (iPosWhere != string::npos) {
+	             		size_t iPosWhereFilter = iPosWhere + 5;
+		                string whereFilter = cleanSpaces(sLineIn.substr(iPosWhereFilter,
+		                                            iPosSemiColon - iPosWhereFilter));
+		                cout << "where " << whereFilter << endl;
+	             	}
+	                
+	                e.executeSelect(tableName, colNames, whereFilter,
+	                				joinTable, joinFilter);
+	                return true;
                 } else {
                     iPosEnd1 = sLineIn.find(")", iPosStart);
                     returningNestedLevel = iPosEnd1 - 1;
-                    if (iPosEnd1 != std::string::npos)
+                    if (iPosEnd1 != string::npos)
                     {
                         //cout << sLineIn << endl;
                         string tableName = sLineIn.substr(iPosStart,
@@ -364,7 +417,7 @@ bool Parser::findInsertInto(string sLineIn)
 {
     size_t iPosStart = sLineIn.find("INSERT INTO");
 
-    if (iPosStart != std::string::npos)
+    if (iPosStart != string::npos)
     {
 	    cout << "insert into found" << endl;
         iPosStart += 11;
@@ -376,19 +429,19 @@ bool Parser::findInsertInto(string sLineIn)
         // insert into T3 select T.A from T1 order by B;
 
         //Execute if values from relation is found
-        if (iPosEnd1 != std::string::npos) // values
+        if (iPosEnd1 != string::npos) // values
         {
             //Get the name of the table from the string
             string sTableNameOut = sLineIn.substr(iPosStart,
                                                   iPosEnd1 - iPosStart);
-            sTableNameOut = cleanSpaces(sTableNameOut);
+            sTableNameOut = Parser::cleanSpaces(sTableNameOut);
             cout << sTableNameOut << endl;
 
             //reposition the iterators to get the row values
             iPosStart = sLineIn.find("(") + 1;
             iPosEnd1 = sLineIn.find(")");
 
-            if (iPosStart != std::string::npos && iPosEnd1 != std::string::npos)
+            if (iPosStart != string::npos && iPosEnd1 != string::npos)
             {
                 //Get the row attributes from the string
                 string sRow = sLineIn.substr(iPosStart,
@@ -413,7 +466,7 @@ bool Parser::findInsertInto(string sLineIn)
             }
         }//change
             //Execute if values from is found
-        else if ((iPosEnd1 = sLineIn.find("SELECT", iPosStart)) != std::string::npos)
+        else if ((iPosEnd1 = sLineIn.find("SELECT", iPosStart)) != string::npos)
         {
             //Get the name of the table from the string
             iPosStart = iPosEnd1 + 6;
@@ -427,7 +480,7 @@ bool Parser::findInsertInto(string sLineIn)
             iPosStart = iPosEnd1 + 4;
             
             // Group By isn't required for Phase 1, but this should work when it is
-            /*if ((iPosEnd1 = sLineIn.find("ORDER BY", iPosStart)) != std::string::npos) {
+            /*if ((iPosEnd1 = sLineIn.find("ORDER BY", iPosStart)) != string::npos) {
             
                 string tableName = sLineIn.substr(iPosStart,
                                              	iPosEnd1 - iPosStart);
@@ -442,7 +495,7 @@ bool Parser::findInsertInto(string sLineIn)
             		cout << "group by col " << groupByCol << endl;
             	}
             } else //*/
-            if ((iPosEnd1 = sLineIn.find(";")) != std::string::npos)
+            if ((iPosEnd1 = sLineIn.find(";")) != string::npos)
             {
                 //Get the tableName from the string
                 string tableName = sLineIn.substr(iPosStart,
@@ -465,11 +518,11 @@ bool Parser::findShowTable(string sLineIn)
 {
   size_t iPosStart = sLineIn.find("SHOW TABLE");
 
-  if (iPosStart != std::string::npos)
+  if (iPosStart != string::npos)
   {
     //Get the name of the table from the string
     string sTableName = sLineIn.substr(iPosStart + SHOW_TABLE_SIZE);
-    sTableName = cleanSpaces(sTableName);
+    sTableName = Parser::cleanSpaces(sTableName);
     
     cout << "table name " << sTableName << endl;
 
@@ -493,9 +546,10 @@ bool Parser::findShowTables(string sLineIn)
 {
   size_t iPosStart = sLineIn.find("SHOW TABLES;");
 
-  if (iPosStart != std::string::npos)
+  if (iPosStart != string::npos)
   {
 	cout << "found show table" << endl;
+	e.displayTableSchemas();
 
     return true;
   }
@@ -532,7 +586,7 @@ bool Parser::checkParenthesis(string sLineIn)
 {
   int iBalance = 0;
 
-  for (int i = 0; i < sLineIn.length(); ++i)
+  for (size_t i = 0; i < sLineIn.length(); ++i)
   {
     if (sLineIn[i] == '(')
     {
@@ -565,13 +619,13 @@ void Parser::select(string sNewTableName, string sRestOfLine)
 {
   size_t iPos = sRestOfLine.find("select");
 
-  if (iPos != std::string::npos)
+  if (iPos != string::npos)
   {
     size_t iParenth1 = sRestOfLine.find("(");
     size_t iParenth2 = sRestOfLine.find(")", iParenth1 + 1);
     string sValues = removeSpaces(
         sRestOfLine.substr(iParenth1 + 1, iParenth2 - iParenth1));
-    string sTableNameIn = cleanSpaces(sRestOfLine.substr(iParenth2 + 1));
+    string sTableNameIn = Parser::cleanSpaces(sRestOfLine.substr(iParenth2 + 1));
 //    vector < string > vValues = makeTokens(sValues);
 
     if (sTableNameIn == sNewTableName)
@@ -621,7 +675,7 @@ vector<string> Parser::createVector(string sLineIn)
     int iAmountOfCommas = 0;
 
     //Check to see how many commas are in the string
-    for (int i = 0; i < sLineIn.length(); ++i)
+    for (size_t i = 0; i < sLineIn.length(); ++i)
     {
         //Execute if the comma is found and increment the counter
         if (sLineIn[i] == ',')
@@ -630,7 +684,7 @@ vector<string> Parser::createVector(string sLineIn)
         }
     }
 
-    //Loop to parser out the comma seperated values
+    //Loop to parser out the comma separated values
     while (iCount <= iAmountOfCommas)
     {
         iPosEnd = sLineIn.find(",", iPosStart + 1);
@@ -639,11 +693,11 @@ vector<string> Parser::createVector(string sLineIn)
         iCount++;
     }
 
-    //clean up the words that were seperated out
-    for (int i = 0; i < vReturn.size(); ++i)
+    //clean up the words that were separated out
+    //for (int i = 0; i < vReturn.size(); ++i)
     {
-        vReturn[i] = cleanSpaces(vReturn[i]);
-        std::cout<<"vReturn: "<<vReturn[i]<<endl;
+        //vReturn[i] = cleanSpaces(vReturn[i]);
+        //cout<<"vReturn: "<<vReturn[i]<<endl;
     }
 
     return vReturn;
@@ -657,7 +711,7 @@ vector<tuple<int, string> > Parser::createRowVector(string sLineIn)
     vector < tuple<int, string> > vRowOut;
     vector < string > vRowAttributes = createVector(sLineIn);
 
-    for (int i = 0; i < vRowAttributes.size(); i++)
+    for (size_t i = 0; i < vRowAttributes.size(); i++)
     {
         int iColIndex = i;
         string sName = vRowAttributes[i];
@@ -669,35 +723,42 @@ vector<tuple<int, string> > Parser::createRowVector(string sLineIn)
 /*******************************************************************************
  Takes in a string, parses it, and creates a vector of columns to send back
  *******************************************************************************/
-vector<tuple<string, string, bool> > Parser::createColVector(string sLineIn)
+vector<tuple<string, string, int, bool> > Parser::createColVector(string sLineIn)
 {
     //<type, name, primarykey>
-    vector < tuple<string, string, bool> > vColVectorOut;
+    vector < tuple<string, string, int, bool> > vColVectorOut;
     vector < string > vCol = createVector(sLineIn);
 
-    for (int i = 0; i < vCol.size(); i++)
+    for (size_t i = 0; i < vCol.size(); i++)
     {
         string sType, sName;
+        int length = 1;
 
         //See what type of column it is and create a tuple with the name & type
-        size_t iVar = vCol[i].find("VARCHAR");
-
-        if (iVar != std::string::npos)
+        size_t iVar = vCol[i].find("CHAR");
+        if (iVar != string::npos)
         {
             sType = "string";
-            sName = vCol[i].substr(0, iVar);
+            string col = vCol[i];
+            sName = col.substr(0, iVar);
+            
+            size_t leftParen = col.find("(") + 1;
+            size_t rightParen = col.find(")");
+            length = stoi(col.substr(leftParen, rightParen - leftParen));
+            cout << "char length " << length << endl;
         }
 
         size_t iInt = vCol[i].find("INT");
-
-        if (iInt != std::string::npos)
+        if (iInt != string::npos)
         {
             sType = "int";
             sName = vCol[i].substr(0, iInt);
         }
+        
+        //cout << "colname " << sName << endl;
 
         //push the newly created column into the vector to send back
-        vColVectorOut.push_back(make_tuple(sName, sType, false));
+        vColVectorOut.push_back(make_tuple(sName, sType, length, false));
 
     }
     return vColVectorOut;

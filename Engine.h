@@ -22,6 +22,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
+#include <string.h>
 #include "Table.h"
 
 using namespace std;
@@ -36,14 +37,22 @@ class Engine {
 	    Engine() {};
 
 	    void createTable(string sTableNameIn,
-	                     vector<tuple<string, string, bool> > vColumnNamesIn,
+	                     vector<tuple<string, string, int, bool> > vColumnNamesIn,
+	                     /*tuple<int, int, int > vSpecs,*/
 	                     vector<string> vKeys);
 	    void displayTable(string sTableNameIn);
+	    void displayTableSchemas();
+	    void executeSelect(string tableName, string colNames, string whereFilter,
+	                				string joinTable, string joinFilter);
 	    void addRow(string sTableNameIn, vector<tuple<int, string> > vRowIn);
+	    
+	    static void writeStringToFile(string val, ofstream& out);
+     static void writetofile();
+     static void read(string);
+	    static void writeIntToFile(int val, ofstream& out);
+	    static int convertCharToInt(char* val);
 
 	};
-
-
 
 #endif
 

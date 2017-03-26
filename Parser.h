@@ -70,12 +70,13 @@ public:
   string getAfterArrow(string sLineIn);
 
     //helper functions
-  vector<tuple<string, string, bool> > createColVector(string sLineIn);
+  vector<tuple<string, string, int, bool> > createColVector(string sLineIn);
   vector<string> createVector(string sLineIn);
   vector<tuple<int, string> > createRowVector(string sLineIn);
-    string cleanSpaces(string sLineIn);
+    static string cleanSpaces(string sLineIn);
     string removeSpaces(string sLineIn);
     bool checkParenthesis(string sLineIn);
+    bool semicolonExists(string sLineIn);
 //  vector<string> makeTokens(string sLineIn); //tokenizes some shit
 //    treeNode * createTree(string sLineIn);
     void projection(string sRestOfLine, string sTableNameOut);

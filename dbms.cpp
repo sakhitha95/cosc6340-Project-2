@@ -46,7 +46,7 @@ void parseSQLQuery(string SQL) {
 
 string toUpper(string str) {
     bool toUpper = true;
-    for (int i = 0; i < str.length(); i++) {
+    for (size_t i = 0; i < str.length(); i++) {
         if (str[i] == '\'') {
             toUpper = false;
         } else {

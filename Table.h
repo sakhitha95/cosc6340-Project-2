@@ -1,145 +1,66 @@
-/*******************************************************************************
- File: Table.h
+//
+// Created by amirreza shirani on 3/11/17.
+//
 
- Authors: Gustavo Pedroso UIN: 423002834
- Levi Clark      UIN: 520007880
- Terry Chen      UIN: 121007055
- Daniel He       UIN: 620006827
-
- Department of Computer Science
- Texas A&M University
- Date  : 2014-02-18
-
- Formatting: * 80 pt width is used for code, for the most part
- * Hungarian naming convention is used for variables
- * Comments are applied for explanations
- * Spacing and brackets are applied for readability
-
- This file contains the header for the table attributes
- *******************************************************************************/
-
-#ifndef TABLE_H
-#define TABLE_H
-
+#ifndef GIT2_TABLE_H
+#define GIT2_TABLE_H
 #include <string>
 #include <vector>
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
 #include <tuple>
-
+#include <fstream>
+#include "fstream"
 using namespace std;
 
 class Table
 {
 private:
-  std::vector<std::tuple<int, std::string, bool, std::string> > vColumnName;
-  std::vector<std::vector<std::tuple<int, std::string> > > vRows;
-  std::string sTableName;
+    //sequence num, column name, isPrimary, stype, block size,
+    vector<tuple<int, string, bool, string, int > > vColumnNames;
+
+    //vector<vector<tuple<int, string> > > vRows;
+    //vector<string> primaryKey;
+
+    //recordSize, totalSize, numOfRecords
+    tuple<int, int, int> vSpecs;
+
+    string sTableName;
 
 public:
-  //constructors
-  Table()
-  {
-  }
-  ;
+    //constructors
+    Table()
+    {};
 
-  //Constructor that takes in a name for the table
-  Table(std::string sTableNameIn)
-  {
-    sTableName = sTableNameIn;
-  }
-
-  //Display function
-  void displayTable();
-
-  //Setters
-  void setPrimaryKey(std::string sKeyIn)
-  {
-    for (int i = 0; i < vColumnName.size(); ++i)
+    //Constructor that takes in a name for the table
+    Table(string sTableNameIn)
     {
-      //Execute if the column name is equal to the parameter name
-      if (std::get < 1 > (vColumnName[i]) == sKeyIn)
-      {
-        //set the boolean value in the column tuple to true, to show it is key
-        std::get < 2 > (vColumnName[i]) = true;
-        return;
-      }
+        sTableName = sTableNameIn;
     }
 
-    printf("| Primary Key was not set\n");
-  }
+    //Display function
+    void displayTable();
 
-  void removePrimaryKey(std::string sKeyIn)
-  {
-    for (int i = 0; i < vColumnName.size(); ++i)
-    {
-      //find the column that is the key and set the bool to false, remove key
-      if (std::get < 1 > (vColumnName[i]) == sKeyIn)
-      {
-        std::get < 2 > (vColumnName[i]) = false;
-        return;
-      }
-    }
+    //Setters
+    void setPrimaryKey(string sKeyIn);
 
-    printf("| Primary Key was not removed\n");
-  }
+    //add a column to the class vector
+    void addColumn(tuple<int, string, bool, string, int> s);
+    void addSpecs(tuple<int, int, int > d);
 
-  //rename the class table to parameter name
-  void rename(std::string sNewName)
-  {
-    sTableName = sNewName;
-  }
+    //add a row to the row vector
+    void addRow(vector<tuple<int, string> > v);
 
-  //add a column to the class vector
-  void addColumn(std::tuple<int, std::string, bool, std::string> s)
-  {
-    vColumnName.push_back(s);
-  }
+    //Getters
+    string getTableName();
 
-  //add a row to the row vector
-  void addRow(std::vector<std::tuple<int, std::string> > v)
-  {
-    vRows.push_back(v);
-  }
+    tuple<int, string, bool, string> getColumnIndex(string sColumnNameIn);
 
-  //find the row and delete it from the vector
-  void deleteRow(std::vector<std::tuple<int, std::string> > vRowIn)
-  {
-    for (int i = 0; i < vRows.size(); ++i)
-    {
-      if (vRows[i] == vRowIn)
-      {
-        vRows.erase(vRows.begin() + i);
-        return;
-      }
-    }
-    printf("| The row was not removed\n");
-  }
+    vector<tuple<int, string> > getRow(int iIndex);
 
-  //Getters
-  std::string getTableName()
-  {
-    return sTableName;
-  }
-
-  std::vector<std::tuple<int, std::string, bool, std::string> > getColumnNames()
-  {
-    return vColumnName;
-  }
-
-  std::vector<std::vector<std::tuple<int, std::string> > > getRows()
-  {
-    return vRows;
-  }
-
-  std::tuple<int, std::string, bool, std::string> getColumnIndex(
-      std::string sColumnNameIn);
-
-  std::vector<std::tuple<int, std::string> > getRow(int iIndex);
-
-  std::vector<std::string> getColumnValues(int iIndex);
+    vector<string> getColumnValues(int iIndex);
 
 };
 
-#endif
+#endif //GIT2_TABLE_H
